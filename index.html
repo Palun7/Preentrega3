@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preentrega N°3</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="usuario-iniciado">
+            <h3 id="zona_usuario"></h3>
+            <h3 id="nombre_del_usuario" class="username-iniciado"></h3>
+        </div>
+        <div class="inicio-registro">
+            <div id="form_login">
+            <button id="login">¿Ya estas registrado/a?</button>
+                <div class="errores">
+                    <p id="mostrar_errores_inicio"></p>
+                </div>
+                <div id="mostrar_inicio">
+                    <input type="text" placeholder="Nombre de usuario" id="usuario">
+                    <input type="password" placeholder="Contraseña" id="pass">
+                    <button id="iniciar_sesion">Iniciar sesión</button>
+                </div>
+            </div>
+            <div id="form_registrar">
+                <button id="signup">Registrate gratis</button>
+                <div class="errores">
+                    <ul id="mostrar_errores_registro"></ul>
+                </div>
+                <div id="mostrar_registro">
+                    <input type="text" placeholder="Nombre de usuario" id="usuario_registro">
+                    <input type="password" placeholder="Constraseña" id="pass_registro">
+                    <input type="password" placeholder="Repita la constraseña" id="pass_registro2">
+                    <input type="text" placeholder="Nombre" id="nombre">
+                    <input type="text" placeholder="Apellido" id="apellido">
+                    <input type="number" placeholder="Edad" id="edad">
+                    <button id="registrar_usuario">Registrarse</button>
+                </div>
+            </div>
+        </div>
+        <div id="contenedor_cerrar_sesion">
+            <button id="boton_cerrar_sesion">Cerrar sesión</button>
+        </div>
+    </header>
+    <button id="mostrar_usuario">Mostrar mis datos</button>
+    <div id="contenedor_mostrar_usuario">
+        <div id="perfil_usuario"></div>
+    </div>
+    <main>
+        <h1>Pawiki</h1>
+        <div id="contenedor_crear_vet">
+            <button id="cargar_vet">Cargar veterinaria</button>
+            <div id="formulario_agregar_veterinaria">
+                <input type="text" placeholder="Nombre" id="nombre_vet">
+                <input type="text" placeholder="Dirección" id="direccion_vet">
+                <input type="text" placeholder="Localidad" id="localidad_vet">
+                <input type="number" min="1" max="5" placeholder="Puntuación (del 1 a 5)" id="puntuacion_vet">
+                <input type="text" maxlength="100" placeholder="Descripción" id="descripcion_vet">
+                <button id="guardar_vet">Guardar</button>
+            </div>
+        </div>
+    </main>
+
+    <script src="scripts/usuario.js"></script>
+    <script src="scripts/login.js"></script>
+    <script src="scripts/veterinaria.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

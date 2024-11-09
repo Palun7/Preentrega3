@@ -1,0 +1,210 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: linear-gradient(to left, rgb(16, 30, 60), rgb(52, 83, 114));
+}
+
+header {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    margin: 1em 0em;
+    color: aquamarine;
+    background-color: black;
+    border-radius: 15px;
+    padding: 5px 20px;
+    letter-spacing: 10px;
+    text-decoration: underline;
+    font-size: 3em;
+}
+
+.inicio-registro {
+    display: flex;
+    justify-content: center;
+    gap: 1em;
+    margin-right: 1em;
+}
+
+#form_login, #mostrar_inicio, #form_registrar, #mostrar_registro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    overflow: hidden;
+    position: relative;
+}
+
+
+
+#mostrar_inicio input, #mostrar_registro input {
+    padding: 5px;
+    border: none;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+#iniciar_sesion, #registrar_usuario {
+    width: 80%;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    border: 1px solid black;
+    transition-duration: .4s;
+    cursor: pointer;
+}
+
+#boton_cerrar_sesion, #login, #signup, #mostrar_usuario, .boton-borrar {
+    font-weight: bold;
+    margin-top: 1em;
+    margin-bottom: .5em;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: none;
+    border: 1px solid black;
+    transition-duration: .4s;
+    cursor: pointer;
+}
+
+#iniciar_sesion:hover, #mostrar_usuario:hover, #login:hover {
+    background-color: lightblue;
+}
+
+#registrar_usuario:hover, #signup:hover {
+    background-color: lightgreen;
+}
+
+#boton_cerrar_sesion:hover, .boton-borrar:hover {
+    background-color: lightcoral;
+}
+
+#mostrar_inicio, #mostrar_registro {
+    margin-top: 1em;
+}
+
+#no-mostrar {
+    display: none;
+}
+
+.usuario-iniciado {
+    display: flex;
+    align-items: flex-end;
+    padding: .1em .4em;
+    width: 220px;
+    height: 45px;
+    position: relative;
+    top: 3em;
+    gap: 1em;
+    border-radius: 5px;
+}
+
+.usuario-iniciado h3 {
+    color: whitesmoke;
+    letter-spacing: 2px;
+}
+
+.username-iniciado {
+    font-size: 2.3em;
+}
+
+#perfil_usuario {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-radius: 5px;
+    background: linear-gradient(rgb(191, 191, 191), rgb(156, 156, 156));
+    transition-duration: 1s;
+}
+
+.perfil-usuario{
+    border: 1px solid black;
+    padding: 20px;
+    gap: 1em;
+}
+
+#contenedor_cerrar_sesion {
+    margin: 1em 3em;
+}
+
+#contenedor_mostrar_usuario {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#mostrar_usuario {
+    position: relative;
+    bottom: 2em;
+}
+
+h4 {
+    font-weight: lighter;
+}
+
+.errores {
+    position: relative;
+}
+
+#contenedor_crear_vet {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1em;
+}
+
+#formulario_agregar_veterinaria {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    width: 200px;
+    overflow: hidden;
+    transition-duration: 1s;
+}
+
+#formulario_agregar_veterinaria input {
+    padding: 5px;
+    border: none;
+    border: 1px solid black;
+    border-radius: 5px;
+    width: 100%;
+}
+
+#cargar_vet {
+    width: 80%;
+    padding: 5px;
+    border: none;
+    border: 1px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+    transition-duration: .5s;
+}
+
+#guardar_vet {
+    width: 50%;
+    padding: 5px;
+    border: none;
+    border: 1px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+    transition-duration: .5s;
+}
+
+#cargar_vet:hover, #guardar_vet:hover {
+    background-color: lightgreen;
+}
