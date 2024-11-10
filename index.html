@@ -52,6 +52,9 @@
         <h1>Pawiki</h1>
         <div id="contenedor_crear_vet">
             <button id="cargar_vet">Cargar veterinaria</button>
+            <div id="contenedor_mostrar_errores_veterinaria">
+                <ul id="mostrar_errores_veterinaria"></ul>
+            </div>
             <div id="formulario_agregar_veterinaria">
                 <input type="text" placeholder="Nombre" id="nombre_vet">
                 <input type="text" placeholder="Dirección" id="direccion_vet">
@@ -60,6 +63,10 @@
                 <input type="text" maxlength="100" placeholder="Descripción" id="descripcion_vet">
                 <button id="guardar_vet">Guardar</button>
             </div>
+        </div>
+        <div class="mostrar-veterinarias">
+            <h2>Veterinarias recomendadas</h2>
+            <div id="veterinarias"></div>
         </div>
     </main>
 

@@ -5,6 +5,7 @@
 }
 
 body {
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -26,7 +27,7 @@ main {
 h1 {
     margin: 1em 0em;
     color: aquamarine;
-    background-color: black;
+    background: linear-gradient(black, rgb(0, 14, 23), transparent);
     border-radius: 15px;
     padding: 5px 20px;
     letter-spacing: 10px;
@@ -38,7 +39,7 @@ h1 {
     display: flex;
     justify-content: center;
     gap: 1em;
-    margin-right: 1em;
+    margin-right: 2vw;
 }
 
 #form_login, #mostrar_inicio, #form_registrar, #mostrar_registro {
@@ -71,7 +72,7 @@ h1 {
 
 #boton_cerrar_sesion, #login, #signup, #mostrar_usuario, .boton-borrar {
     font-weight: bold;
-    margin-top: 1em;
+    margin-top: 2vh;
     margin-bottom: .5em;
     padding: 5px 10px;
     border-radius: 5px;
@@ -94,7 +95,7 @@ h1 {
 }
 
 #mostrar_inicio, #mostrar_registro {
-    margin-top: 1em;
+    margin-top: 2vh;
 }
 
 #no-mostrar {
@@ -103,23 +104,24 @@ h1 {
 
 .usuario-iniciado {
     display: flex;
-    align-items: flex-end;
-    padding: .1em .4em;
+    align-items: center;
+    justify-content: center;
+    padding: .4em;
     width: 220px;
     height: 45px;
-    position: relative;
+    position: absolute;
+    left: 5%;
     top: 3em;
-    gap: 1em;
+    gap: .5em;
     border-radius: 5px;
+    background: linear-gradient(black, rgb(0, 14, 23), transparent);
 }
 
 .usuario-iniciado h3 {
+    font-size: 2em;
+    text-decoration: underline;
     color: whitesmoke;
-    letter-spacing: 2px;
-}
-
-.username-iniciado {
-    font-size: 2.3em;
+    letter-spacing: 4px;
 }
 
 #perfil_usuario {
@@ -127,12 +129,15 @@ h1 {
     flex-direction: column;
     overflow: hidden;
     border-radius: 5px;
-    background: linear-gradient(rgb(191, 191, 191), rgb(156, 156, 156));
+    background: linear-gradient(black, rgb(0, 14, 23), transparent);
     transition-duration: 1s;
 }
 
+#perfil_usuario h3, #perfil_usuario h4 {
+    color: aliceblue;
+}
+
 .perfil-usuario{
-    border: 1px solid black;
     padding: 20px;
     gap: 1em;
 }
@@ -142,14 +147,18 @@ h1 {
 }
 
 #contenedor_mostrar_usuario {
+    position: absolute;
+    top: 1em;
+    left: 30vw;
     display: flex;
     flex-direction: column;
     align-items: center;
+    transition-duration: 1s;
 }
 
 #mostrar_usuario {
     position: relative;
-    bottom: 2em;
+    bottom: 4.5em;
 }
 
 h4 {
@@ -207,4 +216,55 @@ h4 {
 
 #cargar_vet:hover, #guardar_vet:hover {
     background-color: lightgreen;
+}
+
+.mostrar-veterinarias {
+    display: flex;
+    flex-direction: column;
+}
+
+.mostrar-veterinarias h2 {
+    align-self: center;
+    font-size: 2em;
+    margin-bottom: 2em;
+    letter-spacing: 2px;
+    text-decoration: underline;
+    color: aliceblue;
+    padding: 5px 15px;
+    border-radius: 5px;
+    background: linear-gradient(black, rgb(0, 14, 23), transparent);
+}
+
+#veterinarias {
+    width: 90vw;
+    display: flex;
+    gap: 1vw;
+    flex-wrap: wrap;
+}
+
+.contenedor_veterinarias {
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    gap: .5em;
+    padding: 10px;
+    box-shadow: none;
+    border-top: 1px solid black;
+    border-right: 1px solid black;
+    border-left: 1px solid black;
+    border-radius: 5px;
+    background: linear-gradient(rgb(195, 227, 255), transparent);
+    transition-duration: .3s;
+}
+
+.contenedor_veterinarias:hover {
+    box-shadow: 0 0 15px black;
+    position: relative;
+    background-color: rgb(195, 227, 255);
+    scale: 1.05;
+}
+
+.contenedor_veterinarias h3 {
+    align-self: center;
+    margin-bottom: .5em;
 }

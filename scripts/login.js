@@ -96,6 +96,7 @@ iniciar_sesion.addEventListener("click", ()=> {
 
             let formulario_agregar_veterinaria = document.getElementById("formulario_agregar_veterinaria");
             formulario_agregar_veterinaria.style.display = "flex";
+            mostrarVeterinarias();
         }
     }
     if(sesion.length == 0){
@@ -109,7 +110,8 @@ let cerrar_sesion = document.getElementById("boton_cerrar_sesion");
 //boton que cierra la sesion y deja el arreglo de la sesion vacio.
 cerrar_sesion.addEventListener("click", ()=>{
     let sesion = JSON.parse(localStorage.getItem("sesion"));
-    sesion = new Array();
+    sesion = [];
+    localStorage.setItem("sesion", JSON.stringify(sesion));
     cambioVisualLogout(sesion);
 
     let mostrar_usuario = document.querySelector("#mostrar_usuario");
@@ -122,10 +124,12 @@ cerrar_sesion.addEventListener("click", ()=>{
     cargar_vet.style.display = "none";
 
     let contenedor_mostrar_usuario = document.getElementById("contenedor_mostrar_usuario");
-    contenedor_mostrar_usuario.style.display = "none";
+    contenedor_mostrar_usuario.style.top = "-5em";
 
     let formulario_agregar_veterinaria = document.getElementById("formulario_agregar_veterinaria");
     formulario_agregar_veterinaria.style.display = "none";
+
+    mostrarVeterinarias();
 })
 
 //funcion que se llama al iniciar sesion que esconde los botones de login y registro. Por otro lado muestra el boton de cerrar sesion y el boton de mostrar los datos.
@@ -150,7 +154,10 @@ function cambioVisualLogin(usuario){
     nombre_usuario.innerHTML = usuario.username;
 
     let zona_usuario = document.getElementById("zona_usuario");
-    zona_usuario.innerHTML = "Usuario iniciado:";
+    zona_usuario.innerHTML = "Hola";
+
+    let div_usuario_logueado = document.querySelector(".usuario-iniciado");
+    div_usuario_logueado.style.display = "flex";
 }
 
 //funcion que se llama al cerrar sesion que esconde el boton de cerrar sesion y muestra los botones de login y registro.
@@ -170,6 +177,12 @@ function cambioVisualLogout(sesion){
 
     let zona_usuario = document.getElementById("zona_usuario");
     zona_usuario.innerHTML = "";
+
+    let div_usuario_logueado = document.querySelector(".usuario-iniciado");
+    div_usuario_logueado.style.display = "none";
+
+    let div = document.getElementById("perfil_usuario");
+    div.style.height = "0px";
 }
 
 let registrar_usuario = document.getElementById("registrar_usuario");
@@ -258,6 +271,9 @@ registrar_usuario.addEventListener("click", ()=>{
         h3.innerHTML = "Usuario registrado con éxito.";
 
         mostrar_errores_registro.appendChild(h3);
+
+        let mostrar_registro = document.getElementById("mostrar_registro");
+        desplegar(mostrar_registro, "0px");
     }
 })
 
@@ -265,15 +281,17 @@ registrar_usuario.addEventListener("click", ()=>{
 mostrar_usuario.addEventListener("click", ()=>{
     let div = document.getElementById("perfil_usuario");
     div.classList.add("perfil-usuario");
-    div.style.display = "block";
+    div.style.display = "flex";
+    let contenedor_mostrar_usuario = document.getElementById("contenedor_mostrar_usuario");
 
     if(div.style.height === "0px"){
+        contenedor_mostrar_usuario.style.top = "0";
         div.style.height = "250px";
-        div.style.display = "flex";
+        div.style.top = "0";
         div.innerHTML = "";
 
         let dato = JSON.parse(localStorage.getItem("sesion"));
-        usuario = dato[0];
+        let usuario = dato[0];
 
         let username = document.createElement("h3");
         username.innerHTML = "Nombre de usuario: " + usuario.username;
@@ -310,10 +328,16 @@ mostrar_usuario.addEventListener("click", ()=>{
         div.appendChild(nombre);
         div.appendChild(apellido);
         div.appendChild(edad);
+        if(usuario.admin){
+            let admin = document.createElement("h4");
+            admin.innerHTML = "Es admin: Si";
+            div.appendChild(admin);
+        }
         div.appendChild(boton_borrar_usuario);
     }else {
         div.style.height = "0px";
-        div.style.display = "none";
+        div.style.top = "-5em";
+        contenedor_mostrar_usuario.style.top = "-5em";
     }
 })
 
@@ -340,7 +364,7 @@ function verCerrarSesion(login, signup, cerrar_sesion, mostrar_usuario, bot_carg
         signup.style.display = "none";
 
         let zona_usuario = document.getElementById("zona_usuario");
-        zona_usuario.innerHTML = "Usuario iniciado:";
+        zona_usuario.innerHTML = "Hola ";
 
         let nombre_usuario = document.getElementById("nombre_del_usuario");
         nombre_usuario.innerHTML = sesion[0].username;
@@ -356,6 +380,9 @@ function verCerrarSesion(login, signup, cerrar_sesion, mostrar_usuario, bot_carg
 
         let contenedor_mostrar_usuario = document.getElementById("contenedor_mostrar_usuario");
         contenedor_mostrar_usuario.style.display = "flex";
+
+        let div_usuario_logueado = document.querySelector(".usuario-iniciado");
+        div_usuario_logueado.style.display = "flex";
     }else{
         cerrar_sesion.style.display = "none";
         login.style.display = "block";
@@ -370,5 +397,8 @@ function verCerrarSesion(login, signup, cerrar_sesion, mostrar_usuario, bot_carg
 
         let contenedor_mostrar_usuario = document.getElementById("contenedor_mostrar_usuario");
         contenedor_mostrar_usuario.style.display = "none";
+
+        let div_usuario_logueado = document.querySelector(".usuario-iniciado");
+        div_usuario_logueado.style.display = "none";
     }
 }
