@@ -60,7 +60,7 @@ h1 {
     border-radius: 5px;
 }
 
-#iniciar_sesion, #registrar_usuario {
+#iniciar_sesion, #registrar_usuario, .boton_editar {
     width: 80%;
     padding: 5px;
     border-radius: 5px;
@@ -82,11 +82,15 @@ h1 {
     cursor: pointer;
 }
 
+.boton_editar {
+    align-self: center;
+}
+
 #iniciar_sesion:hover, #mostrar_usuario:hover, #login:hover {
     background-color: lightblue;
 }
 
-#registrar_usuario:hover, #signup:hover {
+#registrar_usuario:hover, #signup:hover, .boton_editar:hover {
     background-color: lightgreen;
 }
 
@@ -205,16 +209,17 @@ h4 {
 }
 
 #guardar_vet {
-    width: 50%;
+    display: flex;
+    justify-content: center;
+    width: 100%;
     padding: 5px;
     border: none;
-    border: 1px solid black;
     border-radius: 5px;
     cursor: pointer;
     transition-duration: .5s;
 }
 
-#cargar_vet:hover, #guardar_vet:hover {
+#cargar_vet:hover {
     background-color: lightgreen;
 }
 
@@ -243,6 +248,7 @@ h4 {
 }
 
 .contenedor_veterinarias {
+    min-width: 250px;
     width: fit-content;
     display: flex;
     flex-direction: column;

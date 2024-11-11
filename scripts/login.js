@@ -349,6 +349,21 @@ cargar_vet.addEventListener("click", ()=>{
 
     let errores_veterinaria = document.getElementById("mostrar_errores_veterinaria");
     errores_veterinaria.innerHTML = "";
+
+    let boton_cargar_veterinaria = document.createElement("button");
+    boton_cargar_veterinaria.classList.add("boton_editar");
+    boton_cargar_veterinaria.innerHTML = "Guardar";
+    boton_cargar_veterinaria.addEventListener("click", cargarVeterinaria);
+
+    let div_cargar_veterinaria = document.getElementById("guardar_vet");
+    div_cargar_veterinaria.innerHTML = "";
+    div_cargar_veterinaria.appendChild(boton_cargar_veterinaria);
+
+    document.getElementById("nombre_vet").value = "";
+    document.getElementById("direccion_vet").value = "";
+    document.getElementById("localidad_vet").value = "";
+    document.getElementById("puntuacion_vet").value = "";
+    document.getElementById("descripcion_vet").value = "";
 })
 
 //funcion que se inicia con la carga de la pagina y detecta si hay un usuario logueado o no y dependiendo de ello son los botones que muestra.

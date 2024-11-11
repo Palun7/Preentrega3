@@ -63,9 +63,6 @@ function cargarVeterinaria(){
     }
 }
 
-let boton_cargar_veterinaria = document.getElementById("guardar_vet");
-boton_cargar_veterinaria.addEventListener("click", cargarVeterinaria);
-
 //Funcion que llama del localstorage a las veterinarias y las muestra en un div, tambien se le agrega el boton de eliminar a la veterinaria (siempre y cuando sea el usuario que la creó)
 function mostrarVeterinarias(){
     let div_veterinarias = document.getElementById("veterinarias");
@@ -108,6 +105,44 @@ function mostrarVeterinarias(){
                 }
             })
 
+            let boton_editar = document.createElement("button");
+            boton_editar.classList.add("boton_editar");
+            boton_editar.innerHTML = "Editar veterinaria";
+            boton_editar.addEventListener("click", ()=>{
+                let formulario_agregar_veterinaria = document.getElementById("formulario_agregar_veterinaria");
+                formulario_agregar_veterinaria.style.height = "200px";
+
+                document.getElementById("nombre_vet").value = veterinarias_guardadas[i].nombre;
+                document.getElementById("direccion_vet").value = veterinarias_guardadas[i].direccion;
+                document.getElementById("localidad_vet").value = veterinarias_guardadas[i].localidad;
+                document.getElementById("puntuacion_vet").value = veterinarias_guardadas[i].puntuacion;
+                document.getElementById("descripcion_vet").value = veterinarias_guardadas[i].descripcion;
+
+                let div_editar_veterinaria = document.getElementById("guardar_vet");
+                div_editar_veterinaria.innerHTML = "";
+                let boton_editar_veterinaria = document.createElement("button");
+                boton_editar_veterinaria.innerHTML = "Editar";
+                boton_editar_veterinaria.classList.add("boton_editar");
+                boton_editar_veterinaria.addEventListener("click", ()=>{
+                    let confirmación = confirm("¿Desea aplicar los cambios ");
+
+                    if(confirmación){
+                        veterinarias_guardadas = veterinarias_guardadas.filter(vete => vete.nombre !== veterinarias_guardadas[i].nombre);
+                        localStorage.setItem(guardar_veterinarias, JSON.stringify(veterinarias_guardadas));
+                        cargarVeterinaria();
+                    }else{
+                        formulario_agregar_veterinaria.style.height = "0px";
+
+                        document.getElementById("nombre_vet").value = "";
+                        document.getElementById("direccion_vet").value = "";
+                        document.getElementById("localidad_vet").value = "";
+                        document.getElementById("puntuacion_vet").value = "";
+                        document.getElementById("descripcion_vet").value = "";
+                    }
+                });
+                div_editar_veterinaria.appendChild(boton_editar_veterinaria);
+            })
+
             div.appendChild(nombre);
             div.appendChild(direccion);
             div.appendChild(localidad);
@@ -119,6 +154,7 @@ function mostrarVeterinarias(){
             try{
                 if(veterinarias_guardadas[i].usuario === usuario_logueado[0].username || usuario_logueado[0].admin === true){
                     div.appendChild(boton_borrar);
+                    div.appendChild(boton_editar);
                 }
             }catch(error){
             }

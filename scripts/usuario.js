@@ -20,22 +20,6 @@ class Usuario {
         return `Nombre: ${this.nombre}, ${this.apellido}. Edad: ${this.edad}.`;
     }
 
-    generarFoto(foto){
-        if(foto){
-            this.foto = foto;
-        }else{
-            return "No se pudo cargar la foto";
-        }
-    }
-
-    getFoto(){
-        if(this.foto){
-            return this.foto;
-        }else{
-            return false;
-        }
-    }
-
     setAdmin(){
         if(this.admin){
             return this.admin = false;
