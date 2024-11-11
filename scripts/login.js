@@ -346,6 +346,9 @@ let cargar_vet = document.getElementById("cargar_vet");
 cargar_vet.addEventListener("click", ()=>{
     let formulario_agregar_veterinaria = document.getElementById("formulario_agregar_veterinaria");
     desplegar(formulario_agregar_veterinaria, "200px");
+
+    let errores_veterinaria = document.getElementById("mostrar_errores_veterinaria");
+    errores_veterinaria.innerHTML = "";
 })
 
 //funcion que se inicia con la carga de la pagina y detecta si hay un usuario logueado o no y dependiendo de ello son los botones que muestra.

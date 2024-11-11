@@ -13,11 +13,12 @@ function cargarVeterinaria(){
     let usuario_logueado = JSON.parse(localStorage.getItem("sesion"));
     usuario_logueado = usuario_logueado[0].username;
 
-    // let repetida = false;
-    // let veterinarias_guardadas = JSON.parse(guardar_veterinarias);
-    // for(let i = 0; i < veterinarias_guardadas.length; i++){
-    //     if(veterinarias_guardadas[i].nombre === nombre && veterinarias_guardadas[i].direccion)
-    // }
+    let veterinarias_guardadas = JSON.parse(localStorage.getItem(guardar_veterinarias));
+    for(let i = 0; i < veterinarias_guardadas.length; i++){
+        if(veterinarias_guardadas[i].nombre === nombre && veterinarias_guardadas[i].direccion === direccion){
+            mensaje.push("La veterinaria ya esta cargada");
+        }
+    }
 
     if(nombre === ""){
         mensaje.push("Debes colocar un nombre");
