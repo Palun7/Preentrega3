@@ -69,7 +69,7 @@ function mostrarVeterinarias(){
     div_veterinarias.innerHTML = "";
     let veterinarias_guardadas = JSON.parse(localStorage.getItem(guardar_veterinarias));
     if(veterinarias_guardadas){
-        crearDivVeterinaria(veterinarias_guardadas, div_veterinarias);
+        crearDivVeterinaria(veterinarias_guardadas, div_veterinarias, guardar_veterinarias, "sesion");
     }
 }
 
@@ -98,7 +98,7 @@ buscador.addEventListener("keyup", ()=>{
 //El boton de editar veterinaria lleva los datos de esa veterinaria al formulario de cargar veterinaria,
 //por otra parte crea el boton de "editar" abajo del formulario de cargar veterinaria. Este boton toma los datos que se pusieron en el formulario,
 //elimina la veterinaria a editar y crea una nueva con los datos que se le estan pasando.
-function crearDivVeterinaria(arreglo, div_contenedor){
+function crearDivVeterinaria(arreglo, div_contenedor, clave_vet, clave_sesion){
     for(let i = 0; i < arreglo.length; i++){
         let div = document.createElement("div");
         div.classList.add("contenedor_veterinarias");
@@ -158,8 +158,8 @@ function crearDivVeterinaria(arreglo, div_contenedor){
 
                 if(confirmación){
                     arreglo = arreglo.filter(vete => vete.nombre !== arreglo[i].nombre);
-                    localStorage.setItem(guardar_veterinarias, JSON.stringify(arreglo));
-                    cargarVeterinaria();
+                    localStorage.setItem(clave_vet, JSON.stringify(arreglo));
+                    cargarVeterinaria(clave_vet, clave_sesion);
                 }else{
                     formulario_agregar_veterinaria.style.height = "0px";
 
