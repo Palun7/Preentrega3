@@ -1,10 +1,12 @@
 # Preentrega N°3 - Martinez Pablo - JavaScript
 ## Comision N°: 60005
 
-> Pagina que permite recomendar veterinarias.
+> Página que permite recomendar veterinarias.
 
 > Para poder recomendar una veterinaria hay que estar registrado y logueado.
 
-> Las veterinarias solo pueden ser editadas o eliminadas por el usuario que las cargo o por un admin.
+> El usuario logueado puede ver sus datos y en caso de querer eliminar su usuario de la página puede hacerlo con un boton.
 
-> Se pueden filtrar las veterinarias por sus datos (nombre, dirección, localidad, puntuación).
+> Las veterinarias solo pueden ser editadas o eliminadas por el usuario que las cargó o por un admin.
+
+> Se pueden filtrar las veterinarias, a través de un input, por sus datos(nombre, dirección, localidad, puntuación, reseña o usuario que la recomendó).
