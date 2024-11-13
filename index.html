@@ -50,22 +50,28 @@
     </div>
     <main>
         <h1>Pawiki</h1>
-        <div id="contenedor_crear_vet">
-            <button id="cargar_vet">Cargar veterinaria</button>
-            <div id="contenedor_mostrar_errores_veterinaria">
-                <ul id="mostrar_errores_veterinaria"></ul>
+        <div class="busqueda-carga">
+            <div class="contenedor-busqueda">
+                <input type="text" placeholder="Buscar veterinaria" id="buscador">
             </div>
-            <div id="formulario_agregar_veterinaria">
-                <input type="text" placeholder="Nombre" id="nombre_vet">
-                <input type="text" placeholder="Dirección" id="direccion_vet">
-                <input type="text" placeholder="Localidad" id="localidad_vet">
-                <input type="number" min="1" max="5" placeholder="Puntuación (del 1 a 5)" id="puntuacion_vet">
-                <input type="text" maxlength="100" placeholder="Descripción" id="descripcion_vet">
-                <div id="guardar_vet"></div>
+            <div id="contenedor_crear_vet">
+                <button id="cargar_vet">Cargar veterinaria</button>
+                <div id="contenedor_mostrar_errores_veterinaria">
+                    <ul id="mostrar_errores_veterinaria"></ul>
+                </div>
+                <div id="formulario_agregar_veterinaria">
+                    <input type="text" placeholder="Nombre" id="nombre_vet">
+                    <input type="text" placeholder="Dirección" id="direccion_vet">
+                    <input type="text" placeholder="Localidad" id="localidad_vet">
+                    <input type="number" min="1" max="5" placeholder="Puntuación (del 1 a 5)" id="puntuacion_vet">
+                    <input type="text" maxlength="100" placeholder="Descripción" id="descripcion_vet">
+                    <div id="guardar_vet"></div>
+                </div>
             </div>
         </div>
+
         <div class="mostrar-veterinarias">
-            <h2>Veterinarias recomendadas</h2>
+            <h2 class="recomendadas">Veterinarias recomendadas</h2>
             <div id="veterinarias"></div>
         </div>
     </main>

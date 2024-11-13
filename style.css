@@ -114,7 +114,7 @@ h1 {
     width: 220px;
     height: 45px;
     position: absolute;
-    left: 5%;
+    left: 44%;
     top: 3em;
     gap: .5em;
     border-radius: 5px;
@@ -153,7 +153,7 @@ h1 {
 #contenedor_mostrar_usuario {
     position: absolute;
     top: 1em;
-    left: 30vw;
+    left: 0vw;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -163,6 +163,7 @@ h1 {
 #mostrar_usuario {
     position: relative;
     bottom: 4.5em;
+    right: 30vw;
 }
 
 h4 {
@@ -171,6 +172,23 @@ h4 {
 
 .errores {
     position: relative;
+}
+
+.busqueda-carga {
+    display: flex;
+    gap: 10vw;
+}
+
+#buscador {
+    border: none;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.buscador_sin_sesion {
+    width: 400px;
+    margin-left: 9.5vw;
 }
 
 #contenedor_crear_vet {
@@ -231,7 +249,8 @@ h4 {
 .mostrar-veterinarias h2 {
     align-self: center;
     font-size: 2em;
-    margin-bottom: 2em;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
     letter-spacing: 2px;
     text-decoration: underline;
     color: aliceblue;
@@ -254,6 +273,7 @@ h4 {
     flex-direction: column;
     gap: .5em;
     padding: 10px;
+    margin-bottom: 5vh;
     box-shadow: none;
     border-top: 1px solid black;
     border-right: 1px solid black;
