@@ -42,7 +42,7 @@ h1 {
     margin-right: 2vw;
 }
 
-#form_login, #mostrar_inicio, #form_registrar, #mostrar_registro {
+.form-login, .mostrar-inicio, .form-registrar, .mostrar-registro {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -51,16 +51,26 @@ h1 {
     position: relative;
 }
 
+.mostrar-inicio {
+    height: 0;
+    margin-top: 2vh;
+    transition-duration: .6s;
+}
 
+.mostrar-registro {
+    height: 0;
+    margin-top: 2vh;
+    transition-duration: .8s;
+}
 
-#mostrar_inicio input, #mostrar_registro input {
+.mostrar-inicio input, .mostrar-registro input {
     padding: 5px;
     border: none;
     border: 1px solid black;
     border-radius: 5px;
 }
 
-#iniciar_sesion, #registrar_usuario, .boton_editar {
+.iniciar-sesion, .registrar-usuario, .boton_editar {
     width: 80%;
     padding: 5px;
     border-radius: 5px;
@@ -70,7 +80,7 @@ h1 {
     cursor: pointer;
 }
 
-#boton_cerrar_sesion, #login, #signup, #mostrar_usuario, .boton-borrar {
+.boton-cerrar-sesion, .login-css, .signup-css, .mostrar-usuario, .boton-borrar {
     font-weight: bold;
     margin-top: 2vh;
     margin-bottom: .5em;
@@ -86,24 +96,16 @@ h1 {
     align-self: center;
 }
 
-#iniciar_sesion:hover, #mostrar_usuario:hover, #login:hover {
+.iniciar-sesion:hover, .mostrar-usuario:hover, .login-css:hover {
     background-color: lightblue;
 }
 
-#registrar_usuario:hover, #signup:hover, .boton_editar:hover {
+.registrar-usuario:hover, .signup-css:hover, .boton_editar:hover {
     background-color: lightgreen;
 }
 
-#boton_cerrar_sesion:hover, .boton-borrar:hover {
+.boton-cerrar-sesion:hover, .boton-borrar:hover {
     background-color: lightcoral;
-}
-
-#mostrar_inicio, #mostrar_registro {
-    margin-top: 2vh;
-}
-
-#no-mostrar {
-    display: none;
 }
 
 .usuario-iniciado {
@@ -128,31 +130,28 @@ h1 {
     letter-spacing: 4px;
 }
 
-#perfil_usuario {
+.perfil-usuario {
+    height: 0;
     display: flex;
     flex-direction: column;
     overflow: hidden;
     border-radius: 5px;
     background: linear-gradient(black, rgb(0, 14, 23), transparent);
     transition-duration: 1s;
-}
-
-#perfil_usuario h3, #perfil_usuario h4 {
-    color: aliceblue;
-}
-
-.perfil-usuario{
     padding: 20px;
     gap: 1em;
 }
 
-#contenedor_cerrar_sesion {
+.perfil-usuario h3, .perfil-usuario h4 {
+    color: aliceblue;
+}
+
+.contenedor-cerrar-sesion {
     margin: 1em 3em;
 }
 
-#contenedor_mostrar_usuario {
+.contenedor-mostrar-usuario {
     position: absolute;
-    top: 1em;
     left: 0vw;
     display: flex;
     flex-direction: column;
@@ -160,7 +159,7 @@ h1 {
     transition-duration: 1s;
 }
 
-#mostrar_usuario {
+.mostrar-usuario {
     position: relative;
     bottom: 4.5em;
     right: 30vw;
@@ -179,7 +178,7 @@ h4 {
     gap: 10vw;
 }
 
-#buscador {
+.buscador-css {
     border: none;
     border: 1px solid black;
     border-radius: 5px;
@@ -191,14 +190,15 @@ h4 {
     margin-left: 9.5vw;
 }
 
-#contenedor_crear_vet {
+.contenedor-crear-vet {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 1em;
 }
 
-#formulario_agregar_veterinaria {
+.formulario-agregar-veterinaria {
+    height: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -208,7 +208,7 @@ h4 {
     transition-duration: 1s;
 }
 
-#formulario_agregar_veterinaria input {
+.formulario-agregar-veterinaria input {
     padding: 5px;
     border: none;
     border: 1px solid black;
@@ -216,8 +216,8 @@ h4 {
     width: 100%;
 }
 
-#cargar_vet {
-    width: 80%;
+.cargar-vet {
+    width: 180px;
     padding: 5px;
     border: none;
     border: 1px solid black;
@@ -226,7 +226,7 @@ h4 {
     transition-duration: .5s;
 }
 
-#guardar_vet {
+.guardar-vet {
     display: flex;
     justify-content: center;
     width: 100%;
@@ -237,7 +237,7 @@ h4 {
     transition-duration: .5s;
 }
 
-#cargar_vet:hover {
+.cargar-vet:hover {
     background-color: lightgreen;
 }
 
@@ -259,7 +259,7 @@ h4 {
     background: linear-gradient(black, rgb(0, 14, 23), transparent);
 }
 
-#veterinarias {
+.veterinarias-css {
     width: 90vw;
     display: flex;
     gap: 1vw;
@@ -293,4 +293,48 @@ h4 {
 .contenedor_veterinarias h3 {
     align-self: center;
     margin-bottom: .5em;
+}
+
+.busqueda-exacta {
+    background-color: rgba(3, 3, 61, 0.521);
+    padding: 4px;
+    border-radius: 5px;
+}
+
+
+
+.busqueda-exacta span{
+    color: white;
+}
+
+.top-menos-cinco {
+    top: -5em;
+}
+
+.top-cero {
+    top: 0;
+}
+
+.altura-cero {
+    height: 0;
+}
+
+.altura-cien {
+    height: 100px;
+}
+
+.altura-doscientos {
+    height: 200px;
+}
+
+.altura-dos {
+    height: 245px;
+}
+
+.altura-dos-cincuenta {
+    height: 250px;
+}
+
+.no-mostrar {
+    display: none;
 }

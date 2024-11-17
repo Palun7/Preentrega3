@@ -10,16 +10,12 @@ let signup = document.getElementById("signup");
 let mostrar_usuario = document.querySelector("#mostrar_usuario");
 
 let mostrar_inicio = document.getElementById("mostrar_inicio");
-mostrar_inicio.style.height = "0px";
-mostrar_inicio.style.transitionDuration = ".6s";
 
 
 let mostrar_registro = document.getElementById("mostrar_registro");
-mostrar_registro.style.height = "0px";
-mostrar_registro.style.transitionDuration = ".8s";
+mostrar_registro.classList.add("altura-cero-ocho")
 
 let formulario_agregar_veterinaria = document.getElementById("formulario_agregar_veterinaria");
-formulario_agregar_veterinaria.style.height = "0px";
 
 
 //este boton despliega el formulario para iniciar sesion y repliega el formulario de registro en el caso que este desplegado.
@@ -31,10 +27,10 @@ login.addEventListener("click", ()=>{
     mostrar_errores_inicio.innerHTML = "";
 
     let mostrar_inicio = document.getElementById("mostrar_inicio");
-    desplegar(mostrar_inicio, "100px");
+    desplegar(mostrar_inicio,"altura-cien");
 
     let mostrar_registro = document.getElementById("mostrar_registro");
-    desplegar(mostrar_registro, "0px");
+    mostrar_registro.classList.remove("altura-dos");
 })
 
 //este boton despliega el formulario para registrar un usuario y repliega el formulario de inicio de sesion en el caso que este desplegado.
@@ -46,10 +42,10 @@ signup.addEventListener("click", ()=>{
     mostrar_errores_inicio.innerHTML = "";
 
     let mostrar_registro = document.getElementById("mostrar_registro");
-    desplegar(mostrar_registro, "245px");
+    desplegar(mostrar_registro, "altura-dos");
 
     let mostrar_inicio = document.getElementById("mostrar_inicio");
-    desplegar(mostrar_inicio, "0px");
+    mostrar_inicio.classList.remove("altura-cien");
 })
 
 let iniciar_sesion = document.getElementById("iniciar_sesion");
@@ -74,19 +70,23 @@ iniciar_sesion.addEventListener("click", ()=> {
             cambioVisualLogin(usuario);
 
             let mostrar_usuario = document.querySelector("#mostrar_usuario");
-            mostrar_usuario.style.display = "block";
+            mostrar_usuario.classList.remove("no-mostrar");
 
             let div = document.getElementById("perfil_usuario");
-            div.style.display = "block";
+            div.classList.remove("no-mostrar");
 
             let contenedor_mostrar_usuario = document.getElementById("contenedor_mostrar_usuario");
-            contenedor_mostrar_usuario.style.display = "flex";
+            contenedor_mostrar_usuario.classList.remove("no-mostrar");
+
+            let mostrar_inicio = document.getElementById("mostrar_inicio");
+            desplegar(mostrar_inicio, "altura-cien");
 
             let cargar_vet = document.getElementById("cargar_vet");
-            cargar_vet.style.display = "block";
+            cargar_vet.classList.remove("no-mostrar");
 
             let formulario_agregar_veterinaria = document.getElementById("formulario_agregar_veterinaria");
-            formulario_agregar_veterinaria.style.display = "flex";
+            formulario_agregar_veterinaria.classList.remove("no-mostrar");
+            formulario_agregar_veterinaria.classList.remove("altura-doscientos");
 
             let buscador = document.getElementById("buscador");
             buscador.classList.remove("buscador_sin_sesion");
@@ -110,19 +110,16 @@ cerrar_sesion.addEventListener("click", ()=>{
     cambioVisualLogout(sesion);
 
     let mostrar_usuario = document.querySelector("#mostrar_usuario");
-    mostrar_usuario.style.display = "none";
+    mostrar_usuario.classList.add("no-mostrar");
 
     let div = document.getElementById("perfil_usuario");
-    div.style.display = "none";
+    div.classList.add("no-mostrar");
 
     let cargar_vet = document.getElementById("cargar_vet");
-    cargar_vet.style.display = "none";
-
-    let contenedor_mostrar_usuario = document.getElementById("contenedor_mostrar_usuario");
-    contenedor_mostrar_usuario.style.top = "-5em";
+    cargar_vet.classList.add("no-mostrar");
 
     let formulario_agregar_veterinaria = document.getElementById("formulario_agregar_veterinaria");
-    formulario_agregar_veterinaria.style.display = "none";
+    formulario_agregar_veterinaria.classList.add("no-mostrar");
 
     let buscador = document.getElementById("buscador");
     buscador.classList.add("buscador_sin_sesion");
@@ -226,13 +223,17 @@ registrar_usuario.addEventListener("click", ()=>{
 mostrar_usuario.addEventListener("click", ()=>{
     let div = document.getElementById("perfil_usuario");
     div.classList.add("perfil-usuario");
-    div.style.display = "flex";
+    div.classList.remove("no-mostrar");
+
     let contenedor_mostrar_usuario = document.getElementById("contenedor_mostrar_usuario");
 
-    if(div.style.height === "0px"){
-        contenedor_mostrar_usuario.style.top = "0";
-        div.style.height = "250px";
-        div.style.top = "0";
+    if(!div.classList.contains("altura-dos-cincuenta")){
+        contenedor_mostrar_usuario.classList.add("top-cero");
+        contenedor_mostrar_usuario.classList.remove("top-menos-cinco");
+
+        div.classList.add("altura-dos-cincuenta");
+        div.classList.add("top-cero");
+        div.classList.remove("top-menos-cinco");
         div.innerHTML = "";
 
         let dato = JSON.parse(localStorage.getItem("sesion"));
@@ -280,35 +281,11 @@ mostrar_usuario.addEventListener("click", ()=>{
         }
         div.appendChild(boton_borrar_usuario);
     }else {
-        div.style.height = "0px";
-        div.style.top = "-5em";
-        contenedor_mostrar_usuario.style.top = "-5em";
+        div.classList.remove("altura-dos-cincuenta");
+        div.classList.remove("top-cero");
+        div.classList.add("top-menos-cinco");
+
+        contenedor_mostrar_usuario.classList.remove("top-cero");
+        contenedor_mostrar_usuario.classList.add("top-menos-cinco");
     }
-})
-
-//boton que muestra el formulario para cargar una veterinaria una vez logueado y tambien crea el boton de guardar veterinaria.
-let cargar_vet = document.getElementById("cargar_vet");
-cargar_vet.addEventListener("click", ()=>{
-    let formulario_agregar_veterinaria = document.getElementById("formulario_agregar_veterinaria");
-    desplegar(formulario_agregar_veterinaria, "200px");
-
-    let errores_veterinaria = document.getElementById("mostrar_errores_veterinaria");
-    errores_veterinaria.innerHTML = "";
-
-    let boton_cargar_veterinaria = document.createElement("button");
-    boton_cargar_veterinaria.classList.add("boton_editar");
-    boton_cargar_veterinaria.innerHTML = "Guardar";
-    boton_cargar_veterinaria.addEventListener("click", ()=>{
-        cargarVeterinaria(guardar_veterinarias, "sesion");
-    });
-
-    let div_cargar_veterinaria = document.getElementById("guardar_vet");
-    div_cargar_veterinaria.innerHTML = "";
-    div_cargar_veterinaria.appendChild(boton_cargar_veterinaria);
-
-    document.getElementById("nombre_vet").value = "";
-    document.getElementById("direccion_vet").value = "";
-    document.getElementById("localidad_vet").value = "";
-    document.getElementById("puntuacion_vet").value = "";
-    document.getElementById("descripcion_vet").value = "";
 })

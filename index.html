@@ -13,72 +13,72 @@
             <h3 id="nombre_del_usuario" class="username-iniciado"></h3>
         </div>
         <div class="inicio-registro">
-            <div id="form_login">
-            <button id="login">¿Ya estas registrado/a?</button>
+            <div id="form_login" class="form-login">
+            <button id="login" class="login-css">¿Ya estas registrado/a?</button>
                 <div class="errores">
                     <p id="mostrar_errores_inicio"></p>
                 </div>
-                <div id="mostrar_inicio">
+                <div id="mostrar_inicio" class="mostrar-inicio">
                     <input type="text" placeholder="Nombre de usuario" id="usuario">
                     <input type="password" placeholder="Contraseña" id="pass">
-                    <button id="iniciar_sesion">Iniciar sesión</button>
+                    <button id="iniciar_sesion" class="iniciar-sesion">Iniciar sesión</button>
                 </div>
             </div>
-            <div id="form_registrar">
-                <button id="signup">Registrate gratis</button>
+            <div id="form_registrar" class="form-registrar">
+                <button id="signup" class="signup-css">Registrate gratis</button>
                 <div class="errores">
                     <ul id="mostrar_errores_registro"></ul>
                 </div>
-                <div id="mostrar_registro">
-                    <form>
+                <div id="mostrar_registro" class="mostrar-registro">
                         <input type="text" placeholder="Nombre de usuario" id="usuario_registro">
                         <input type="password" placeholder="Constraseña" id="pass_registro">
                         <input type="password" placeholder="Repita la constraseña" id="pass_registro2">
                         <input type="text" placeholder="Nombre" id="nombre">
                         <input type="text" placeholder="Apellido" id="apellido">
                         <input type="number" placeholder="Edad" id="edad">
-                        <button id="registrar_usuario">Registrarse</button>
-                    </form>
+                        <button id="registrar_usuario" class="registrar-usuario">Registrarse</button>
                 </div>
             </div>
         </div>
-        <div id="contenedor_cerrar_sesion">
-            <button id="boton_cerrar_sesion">Cerrar sesión</button>
+        <div id="contenedor_cerrar_sesion" class="contenedor-cerrar-sesion">
+            <button id="boton_cerrar_sesion" class="boton-cerrar-sesion">Cerrar sesión</button>
         </div>
     </header>
-    <button id="mostrar_usuario">Mostrar mis datos</button>
-    <div id="contenedor_mostrar_usuario">
-        <div id="perfil_usuario"></div>
-    </div>
+    <section>
+        <button id="mostrar_usuario" class="mostrar-usuario">Mostrar mis datos</button>
+        <div id="contenedor_mostrar_usuario" class="contenedor-mostrar-usuario top-menos-cinco">
+            <div id="perfil_usuario" class="perfil-usuario top-menos-cinco"></div>
+        </div>
+    </section>
     <main>
         <h1>Pawiki</h1>
         <div class="busqueda-carga">
             <div class="contenedor-busqueda">
-                <input type="search" placeholder="Buscar veterinaria" id="buscador">
-                <label>
+                <input type="search" placeholder="Buscar veterinaria" id="buscador" class="buscador-css">
+                <label class="busqueda-exacta">
                     <input type="checkbox" id="busqueda_exacta">
-                    Busqueda exacta
+                    <span>Busqueda exacta</span>
                 </label>
             </div>
-            <div id="contenedor_crear_vet">
-                <button id="cargar_vet">Cargar veterinaria</button>
+            <div id="contenedor_crear_vet" class="contenedor-crear-vet">
+                <button id="cargar_vet" class="cargar-vet">Cargar veterinaria</button>
                 <div id="contenedor_mostrar_errores_veterinaria">
                     <ul id="mostrar_errores_veterinaria"></ul>
                 </div>
-                <div id="formulario_agregar_veterinaria">
+                <div id="formulario_agregar_veterinaria" class="formulario-agregar-veterinaria">
                     <input type="text" placeholder="Nombre" id="nombre_vet">
                     <input type="text" placeholder="Dirección" id="direccion_vet">
                     <input type="text" placeholder="Localidad" id="localidad_vet">
                     <input type="number" min="1" max="5" placeholder="Puntuación (del 1 a 5)" id="puntuacion_vet">
                     <input type="text" maxlength="100" placeholder="Descripción" id="descripcion_vet">
-                    <div id="guardar_vet"></div>
+                    <div id="guardar_vet" class="guardar-vet"></div>
                 </div>
             </div>
         </div>
 
         <div class="mostrar-veterinarias">
             <h2 class="recomendadas">Veterinarias recomendadas</h2>
-            <div id="veterinarias"></div>
+            <div id="veterinarias" class="veterinarias-css"></div>
         </div>
     </main>
 

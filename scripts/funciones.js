@@ -1,29 +1,28 @@
 //funcion que le da el alto a los formularios tanto de iniciar sesion como el de registrar usuario.
-function desplegar(elemento, parametro){
-    if(elemento.style.height == "0px"){
-        elemento.style.height = parametro;
+function desplegar(elemento, clase){
+    if(elemento.classList.contains(clase)){
+        elemento.classList.remove(clase);
     }else{
-        elemento.style.height = "0px";
+        elemento.classList.add(clase);
     }
 }
 
 //funcion que se llama al iniciar sesion que esconde los botones de login y registro. Por otro lado muestra el boton de cerrar sesion y el boton de mostrar los datos.
 function cambioVisualLogin(usuario){
     let cerrar_sesion = document.getElementById("boton_cerrar_sesion");
-    cerrar_sesion.style.display = "block";
+    cerrar_sesion.classList.remove("no-mostrar");
 
     let mostrar_inicio = document.getElementById("mostrar_inicio");
-    mostrar_inicio.style.height = "0px";
-    mostrar_inicio.style.transitionDuration = ".4s";
+    mostrar_inicio.classList.add("no-mostrar");
 
     let error = document.getElementById("mostrar_errores_inicio");
     error.innerHTML = "";
 
     let login = document.getElementById("login");
-    login.style.display = "none";
+    login.classList.add("no-mostrar");
 
     let signup = document.getElementById("signup");
-    signup.style.display = "none";
+    signup.classList.add("no-mostrar");
 
     let nombre_usuario = document.getElementById("nombre_del_usuario");
     nombre_usuario.innerHTML = usuario.username;
@@ -32,20 +31,23 @@ function cambioVisualLogin(usuario){
     zona_usuario.innerHTML = "Hola";
 
     let div_usuario_logueado = document.querySelector(".usuario-iniciado");
-    div_usuario_logueado.style.display = "flex";
+    div_usuario_logueado.classList.remove("no-mostrar");
 }
 
 //funcion que se llama al cerrar sesion que esconde el boton de cerrar sesion y muestra los botones de login y registro.
 function cambioVisualLogout(sesion){
     let cerrar_sesion = document.getElementById("boton_cerrar_sesion");
-    cerrar_sesion.style.display = "none";
+    cerrar_sesion.classList.add("no-mostrar");
     localStorage.setItem("sesion", sesion);
 
     let login = document.getElementById("login");
-    login.style.display = "block";
+    login.classList.remove("no-mostrar");
 
     let signup = document.getElementById("signup");
-    signup.style.display = "block";
+    signup.classList.remove("no-mostrar");
+
+    let mostrar_inicio = document.getElementById("mostrar_inicio");
+    mostrar_inicio.classList.remove("no-mostrar");
 
     let nombre_usuario = document.getElementById("nombre_del_usuario");
     nombre_usuario.innerHTML = "";
@@ -54,14 +56,17 @@ function cambioVisualLogout(sesion){
     zona_usuario.innerHTML = "";
 
     let div_usuario_logueado = document.querySelector(".usuario-iniciado");
-    div_usuario_logueado.style.display = "none";
-
-    let div = document.getElementById("perfil_usuario");
-    div.style.height = "0px";
+    div_usuario_logueado.classList.add("no-mostrar");
 }
 
 //funcion que se inicia con la carga de la pagina y detecta si hay un usuario logueado o no y dependiendo de ello son los botones que muestra.
 function verCerrarSesion(login, signup, cerrar_sesion, mostrar_usuario, bot_cargar_vet, formulario){
+    let div = document.getElementById("perfil_usuario");
+    let contenedor_mostrar_usuario = document.getElementById("contenedor_mostrar_usuario");
+    let div_usuario_logueado = document.querySelector(".usuario-iniciado");
+    let buscador = document.getElementById("buscador");
+
+
     let sesion;
     try{
         sesion = JSON.parse(localStorage.getItem("sesion"));
@@ -71,52 +76,50 @@ function verCerrarSesion(login, signup, cerrar_sesion, mostrar_usuario, bot_carg
     }
 
     if(sesion && sesion.length !== 0){
-        cerrar_sesion.style.display = "block";
-        login.style.display = "none";
-        signup.style.display = "none";
+        div.classList.add("no-mostrar");
+
+        login.classList.add("no-mostrar");
+
+        signup.classList.add("no-mostrar");
 
         let zona_usuario = document.getElementById("zona_usuario");
         zona_usuario.innerHTML = "Hola ";
 
         let nombre_usuario = document.getElementById("nombre_del_usuario");
         nombre_usuario.innerHTML = sesion[0].username;
-        mostrar_usuario.style.display = "block";
 
-        let div = document.getElementById("perfil_usuario");
-        div.style.height = "0px";
-        div.style.display = "none";
+        mostrar_usuario.classList.remove("no-mostrar");
 
+        cerrar_sesion.classList.remove("no-mostrar");
 
-        bot_cargar_vet.style.display = "block";
-        formulario.style.display = "flex"
+        bot_cargar_vet.classList.remove("no-mostrar");
 
-        let contenedor_mostrar_usuario = document.getElementById("contenedor_mostrar_usuario");
-        contenedor_mostrar_usuario.style.display = "flex";
+        formulario.classList.remove("no-mostrar");
 
-        let div_usuario_logueado = document.querySelector(".usuario-iniciado");
-        div_usuario_logueado.style.display = "flex";
+        contenedor_mostrar_usuario.classList.remove("no-mostrar");
 
-        let buscador = document.getElementById("buscador");
+        div_usuario_logueado.classList.remove("no-mostrar");
+
         buscador.classList.remove("buscador_sin_sesion");
     }else{
-        cerrar_sesion.style.display = "none";
-        login.style.display = "block";
-        signup.style.display = "block";
-        mostrar_usuario.style.display = "none";
-        bot_cargar_vet.style.display = "none";
-        formulario.style.display = "none";
+        div.classList.remove("no-mostrar");
 
-        let div = document.getElementById("perfil_usuario");
-        div.style.display = "block";
-        div.style.height = "0px";
+        login.classList.remove("no-mostrar");
 
-        let contenedor_mostrar_usuario = document.getElementById("contenedor_mostrar_usuario");
-        contenedor_mostrar_usuario.style.display = "none";
+        signup.classList.remove("no-mostrar");
 
-        let div_usuario_logueado = document.querySelector(".usuario-iniciado");
-        div_usuario_logueado.style.display = "none";
+        mostrar_usuario.classList.add("no-mostrar");
 
-        let buscador = document.getElementById("buscador");
+        bot_cargar_vet.classList.add("no-mostrar");
+
+        formulario.classList.add("no-mostrar");
+
+        cerrar_sesion.classList.add("no-mostrar");
+
+        contenedor_mostrar_usuario.classList.add("no-mostrar");
+
+        div_usuario_logueado.classList.add("no-mostrar");
+
         buscador.classList.add("buscador_sin_sesion");
     }
 }
@@ -138,8 +141,11 @@ function cargarVeterinaria(clave_vet, clave_sesion){
 
     let veterinarias_guardadas = JSON.parse(localStorage.getItem(clave_vet));
     for(let i = 0; i < veterinarias_guardadas.length; i++){
-        if(veterinarias_guardadas[i].nombre === nombre && veterinarias_guardadas[i].direccion === direccion){
+        if(veterinarias_guardadas[i].nombre.toLowerCase() === nombre.toLowerCase() && veterinarias_guardadas[i].direccion.toLowerCase() === direccion.toLowerCase()){
             mensaje.push("La veterinaria ya esta cargada");
+        }
+        else if(veterinarias_guardadas[i].nombre.toLowerCase() === nombre.toLowerCase()){
+            mensaje.push('Ya existe una veterinaria con ese nombre, agregarle un distintivo, ej:"veterinaria calle"');
         }
     }
 
@@ -175,7 +181,7 @@ function cargarVeterinaria(clave_vet, clave_sesion){
         document.getElementById("descripcion_vet").value = "";
 
         let formulario_agregar_veterinaria = document.getElementById("formulario_agregar_veterinaria");
-        formulario_agregar_veterinaria.style.height = "0px";
+        formulario_agregar_veterinaria.classList.remove("altura-doscientos");
         mostrarVeterinarias();
     }else {
         for(let i = 0; i<mensaje.length; i++){
@@ -243,7 +249,7 @@ function crearDivVeterinaria(arreglo, div_contenedor, clave_vet, clave_sesion){
         boton_editar.innerHTML = "Editar veterinaria";
         boton_editar.addEventListener("click", ()=>{
             let formulario_agregar_veterinaria = document.getElementById("formulario_agregar_veterinaria");
-            formulario_agregar_veterinaria.style.height = "200px";
+            formulario_agregar_veterinaria.classList.add("altura-doscientos");
 
             document.getElementById("nombre_vet").value = arreglo[i].nombre;
             document.getElementById("direccion_vet").value = arreglo[i].direccion;
@@ -264,7 +270,7 @@ function crearDivVeterinaria(arreglo, div_contenedor, clave_vet, clave_sesion){
                     localStorage.setItem(clave_vet, JSON.stringify(arreglo));
                     cargarVeterinaria(clave_vet, clave_sesion);
                 }else{
-                    formulario_agregar_veterinaria.style.height = "0px";
+                    formulario_agregar_veterinaria.classList.remove("altura-doscientos");
 
                     document.getElementById("nombre_vet").value = "";
                     document.getElementById("direccion_vet").value = "";
