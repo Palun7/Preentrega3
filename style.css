@@ -113,7 +113,7 @@ h1 {
     align-items: center;
     justify-content: center;
     padding: .4em;
-    width: 220px;
+    width: fit-content;
     height: 45px;
     position: absolute;
     left: 44%;

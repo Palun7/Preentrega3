@@ -1,3 +1,5 @@
+const guardarSesion = "sesion";
+
 //funcion que le da el alto a los formularios tanto de iniciar sesion como el de registrar usuario.
 function desplegar(elemento, clase){
     if(elemento.classList.contains(clase)){
@@ -38,7 +40,7 @@ function cambioVisualLogin(usuario){
 function cambioVisualLogout(sesion){
     let cerrar_sesion = document.getElementById("boton_cerrar_sesion");
     cerrar_sesion.classList.add("no-mostrar");
-    localStorage.setItem("sesion", sesion);
+    localStorage.setItem(guardarSesion, sesion);
 
     let login = document.getElementById("login");
     login.classList.remove("no-mostrar");
@@ -60,7 +62,7 @@ function cambioVisualLogout(sesion){
 }
 
 //funcion que se inicia con la carga de la pagina y detecta si hay un usuario logueado o no y dependiendo de ello son los botones que muestra.
-function verCerrarSesion(login, signup, cerrar_sesion, mostrar_usuario, bot_cargar_vet, formulario){
+function setearPagina(login, signup, cerrar_sesion, mostrar_usuario, bot_cargar_vet, formulario){
     let div = document.getElementById("perfil_usuario");
     let contenedor_mostrar_usuario = document.getElementById("contenedor_mostrar_usuario");
     let div_usuario_logueado = document.querySelector(".usuario-iniciado");
@@ -69,7 +71,7 @@ function verCerrarSesion(login, signup, cerrar_sesion, mostrar_usuario, bot_carg
 
     let sesion;
     try{
-        sesion = JSON.parse(localStorage.getItem("sesion"));
+        sesion = JSON.parse(localStorage.getItem(guardarSesion));
 
     }catch(error){
         sesion = new Array();
@@ -198,7 +200,7 @@ function mostrarVeterinarias(){
     div_veterinarias.innerHTML = "";
     let veterinarias_guardadas = JSON.parse(localStorage.getItem(guardar_veterinarias));
     if(veterinarias_guardadas){
-        crearDivVeterinaria(veterinarias_guardadas, div_veterinarias, guardar_veterinarias, "sesion");
+        crearDivVeterinaria(veterinarias_guardadas, div_veterinarias, guardar_veterinarias, guardarSesion);
     }
 }
 
@@ -228,7 +230,7 @@ function crearDivVeterinaria(arreglo, div_contenedor, clave_vet, clave_sesion){
 
         let usuario_logueado;
         try{
-            usuario_logueado = JSON.parse(localStorage.getItem("sesion"));
+            usuario_logueado = JSON.parse(localStorage.getItem(guardarSesion));
         }catch(error){
             usuario_logueado = [];
         }
@@ -299,4 +301,36 @@ function crearDivVeterinaria(arreglo, div_contenedor, clave_vet, clave_sesion){
         }
         div_contenedor.appendChild(div);
     }
+}
+
+// Funcion que cierra la sesion y deja el arreglo de la sesion vacio.
+function cerrarSesion(){
+    let sesion = JSON.parse(localStorage.getItem(guardarSesion));
+    sesion = [];
+    localStorage.setItem(guardarSesion, JSON.stringify(sesion));
+    cambioVisualLogout(sesion);
+
+    let mostrar_usuario = document.querySelector("#mostrar_usuario");
+    mostrar_usuario.classList.add("no-mostrar");
+
+    let div = document.getElementById("perfil_usuario");
+    div.classList.add("no-mostrar");
+    div.classList.remove("altura-dos-cincuenta");
+    div.classList.remove("top-cero");
+    div.classList.add("top-menos-cinco");
+
+    let cargar_vet = document.getElementById("cargar_vet");
+    cargar_vet.classList.add("no-mostrar");
+
+    let formulario_agregar_veterinaria = document.getElementById("formulario_agregar_veterinaria");
+    formulario_agregar_veterinaria.classList.add("no-mostrar");
+
+    let buscador = document.getElementById("buscador");
+    buscador.classList.add("buscador_sin_sesion");
+
+    let contenedor_mostrar_usuario = document.getElementById("contenedor_mostrar_usuario");
+    contenedor_mostrar_usuario.classList.remove("top-cero");
+    contenedor_mostrar_usuario.classList.add("top-menos-cinco");
+
+    mostrarVeterinarias();
 }

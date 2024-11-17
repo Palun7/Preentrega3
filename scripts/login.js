@@ -1,5 +1,3 @@
-const guardarSesion = "sesion";
-
 let mostrar_errores_registro = document.getElementById("mostrar_errores_registro");
 mostrar_errores_registro.innerHTML = "";
 
@@ -104,27 +102,7 @@ let cerrar_sesion = document.getElementById("boton_cerrar_sesion");
 
 //boton que cierra la sesion y deja el arreglo de la sesion vacio.
 cerrar_sesion.addEventListener("click", ()=>{
-    let sesion = JSON.parse(localStorage.getItem("sesion"));
-    sesion = [];
-    localStorage.setItem("sesion", JSON.stringify(sesion));
-    cambioVisualLogout(sesion);
-
-    let mostrar_usuario = document.querySelector("#mostrar_usuario");
-    mostrar_usuario.classList.add("no-mostrar");
-
-    let div = document.getElementById("perfil_usuario");
-    div.classList.add("no-mostrar");
-
-    let cargar_vet = document.getElementById("cargar_vet");
-    cargar_vet.classList.add("no-mostrar");
-
-    let formulario_agregar_veterinaria = document.getElementById("formulario_agregar_veterinaria");
-    formulario_agregar_veterinaria.classList.add("no-mostrar");
-
-    let buscador = document.getElementById("buscador");
-    buscador.classList.add("buscador_sin_sesion");
-
-    mostrarVeterinarias();
+    cerrarSesion();
 })
 
 let registrar_usuario = document.getElementById("registrar_usuario");
@@ -210,12 +188,12 @@ registrar_usuario.addEventListener("click", ()=>{
         let mostrar_errores_registro = document.getElementById("mostrar_errores_registro");
 
         let h3 = document.createElement("h3");
-        h3.innerHTML = "Usuario registrado con éxito.";
+        h3.innerHTML = `Usuario ${username} registrado con éxito.`;
 
         mostrar_errores_registro.appendChild(h3);
 
         let mostrar_registro = document.getElementById("mostrar_registro");
-        desplegar(mostrar_registro, "0px");
+        mostrar_registro.classList.remove("altura-dos");
     }
 })
 
@@ -236,7 +214,7 @@ mostrar_usuario.addEventListener("click", ()=>{
         div.classList.remove("top-menos-cinco");
         div.innerHTML = "";
 
-        let dato = JSON.parse(localStorage.getItem("sesion"));
+        let dato = JSON.parse(localStorage.getItem(guardarSesion));
         let usuario = dato[0];
 
         let username = document.createElement("h3");
@@ -258,11 +236,15 @@ mostrar_usuario.addEventListener("click", ()=>{
             let confirmación = confirm("Si borra su usuario no se podrá recuperar, ¿desea proseguir?");
             if(confirmación){
                 let usuarios_guardados = JSON.parse(localStorage.getItem(guardarDatos));
-                let usuario_iniciado = JSON.parse(localStorage.getItem("sesion"));
+                let usuario_iniciado = JSON.parse(localStorage.getItem(guardarSesion));
                 for(let i = 0; i < usuarios_guardados.length; i++){
                     if(usuarios_guardados[i].username === usuario_iniciado[0].username){
                         usuarios_guardados = usuarios_guardados.filter(a=> a.username !== usuario_iniciado[0].username);
-                        alert("Usuario eliminado, al cerrar sesion ya no podrá volver a iniciar");
+                        cerrarSesion();
+                        let mostrar_errores_registro = document.getElementById("mostrar_errores_registro");
+                        let h3 = document.createElement("h3");
+                        h3.innerHTML = `Usuario ${usuario.username} eliminado con éxito.`;
+                        mostrar_errores_registro.appendChild(h3);
                         break;
                     }
                 }

@@ -68,5 +68,5 @@ buscador.addEventListener("keyup", ()=>{
 
 
 
-verCerrarSesion(login, signup, cerrar_sesion, mostrar_usuario, cargar_vet, formulario_agregar_veterinaria);
+setearPagina(login, signup, cerrar_sesion, mostrar_usuario, cargar_vet, formulario_agregar_veterinaria);
 mostrarVeterinarias();
