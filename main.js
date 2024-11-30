@@ -2,10 +2,10 @@
 let cargar_vet = document.getElementById("cargar_vet");
 cargar_vet.addEventListener("click", ()=>{
     let formulario_agregar_veterinaria = document.getElementById("formulario_agregar_veterinaria");
-    if(formulario_agregar_veterinaria.classList.contains("altura-doscientos")){
-        formulario_agregar_veterinaria.classList.remove("altura-doscientos");
+    if(formulario_agregar_veterinaria.classList.contains("altura-dos")){
+        formulario_agregar_veterinaria.classList.remove("altura-dos");
     }else {
-        formulario_agregar_veterinaria.classList.add("altura-doscientos");
+        formulario_agregar_veterinaria.classList.add("altura-dos");
     }
 
     let errores_veterinaria = document.getElementById("mostrar_errores_veterinaria");
@@ -15,7 +15,7 @@ cargar_vet.addEventListener("click", ()=>{
     boton_cargar_veterinaria.classList.add("boton_editar");
     boton_cargar_veterinaria.innerHTML = "Guardar";
     boton_cargar_veterinaria.addEventListener("click", ()=>{
-        cargarVeterinaria(guardar_veterinarias, "sesion");
+        cargarVeterinaria(guardar_veterinarias, guardarSesion);
     });
 
     let div_cargar_veterinaria = document.getElementById("guardar_vet");

@@ -2,6 +2,7 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    font-family: "Roboto Slab", serif;
 }
 
 body {
@@ -13,9 +14,11 @@ body {
 }
 
 header {
+    min-height: 7vh;
     width: 100%;
     display: flex;
     justify-content: flex-end;
+    background: linear-gradient(to left, rgb(28, 52, 105), rgb(69, 95, 121));
 }
 
 main {
@@ -53,13 +56,13 @@ h1 {
 
 .mostrar-inicio {
     height: 0;
-    margin-top: 2vh;
+    /* margin-top: 1vh; */
     transition-duration: .6s;
 }
 
 .mostrar-registro {
     height: 0;
-    margin-top: 2vh;
+    /* margin-top: 1vh; */
     transition-duration: .8s;
 }
 
@@ -73,6 +76,7 @@ h1 {
 .iniciar-sesion, .registrar-usuario, .boton_editar {
     width: 80%;
     padding: 5px;
+    margin-bottom: 1vh;
     border-radius: 5px;
     border: none;
     border: 1px solid black;
@@ -173,6 +177,12 @@ h4 {
     position: relative;
 }
 
+.errores * {
+    color: white;
+    background-color: rgba(0, 0, 0, 0.685);
+    border-radius: 5px;
+}
+
 .busqueda-carga {
     display: flex;
     gap: 10vw;
@@ -251,7 +261,7 @@ h4 {
     font-size: 2em;
     margin-top: 5vh;
     margin-bottom: 5vh;
-    letter-spacing: 2px;
+    letter-spacing: 5px;
     text-decoration: underline;
     color: aliceblue;
     padding: 5px 15px;
@@ -323,6 +333,10 @@ h4 {
     height: 100px;
 }
 
+.altura-cientoveinte {
+    height: 120px;
+}
+
 .altura-doscientos {
     height: 200px;
 }
@@ -333,6 +347,22 @@ h4 {
 
 .altura-dos-cincuenta {
     height: 250px;
+}
+
+.altura-dos-sesenta {
+    height: 260px;
+}
+
+.altura-dos-setenta {
+    height: 270px;
+}
+
+.altura-trescientos {
+    height: 300px;
+}
+
+.margin-bot-1 {
+    margin-bottom: 1vh;
 }
 
 .no-mostrar {

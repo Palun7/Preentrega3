@@ -25,19 +25,10 @@ function cambioVisualLogin(usuario){
 
     let signup = document.getElementById("signup");
     signup.classList.add("no-mostrar");
-
-    let nombre_usuario = document.getElementById("nombre_del_usuario");
-    nombre_usuario.innerHTML = usuario.username;
-
-    let zona_usuario = document.getElementById("zona_usuario");
-    zona_usuario.innerHTML = "Hola";
-
-    let div_usuario_logueado = document.querySelector(".usuario-iniciado");
-    div_usuario_logueado.classList.remove("no-mostrar");
 }
 
 //funcion que se llama al cerrar sesion que esconde el boton de cerrar sesion y muestra los botones de login y registro.
-function cambioVisualLogout(sesion){
+function cambioVisualLogout(sesion, usuario){
     let cerrar_sesion = document.getElementById("boton_cerrar_sesion");
     cerrar_sesion.classList.add("no-mostrar");
     localStorage.setItem(guardarSesion, sesion);
@@ -51,22 +42,20 @@ function cambioVisualLogout(sesion){
     let mostrar_inicio = document.getElementById("mostrar_inicio");
     mostrar_inicio.classList.remove("no-mostrar");
 
-    let nombre_usuario = document.getElementById("nombre_del_usuario");
-    nombre_usuario.innerHTML = "";
-
-    let zona_usuario = document.getElementById("zona_usuario");
-    zona_usuario.innerHTML = "";
-
-    let div_usuario_logueado = document.querySelector(".usuario-iniciado");
-    div_usuario_logueado.classList.add("no-mostrar");
+    Toastify({
+        text: `${usuario.username} cerró sesión`,
+        duration: 2000,
+        gravity: 'top',
+        position: 'center',
+    }).showToast();
 }
 
 //funcion que se inicia con la carga de la pagina y detecta si hay un usuario logueado o no y dependiendo de ello son los botones que muestra.
 function setearPagina(login, signup, cerrar_sesion, mostrar_usuario, bot_cargar_vet, formulario){
     let div = document.getElementById("perfil_usuario");
     let contenedor_mostrar_usuario = document.getElementById("contenedor_mostrar_usuario");
-    let div_usuario_logueado = document.querySelector(".usuario-iniciado");
     let buscador = document.getElementById("buscador");
+    let contenedor_veterinarias = document.getElementById("mostrar_veterinarias");
 
 
     let sesion;
@@ -84,12 +73,6 @@ function setearPagina(login, signup, cerrar_sesion, mostrar_usuario, bot_cargar_
 
         signup.classList.add("no-mostrar");
 
-        let zona_usuario = document.getElementById("zona_usuario");
-        zona_usuario.innerHTML = "Hola ";
-
-        let nombre_usuario = document.getElementById("nombre_del_usuario");
-        nombre_usuario.innerHTML = sesion[0].username;
-
         mostrar_usuario.classList.remove("no-mostrar");
 
         cerrar_sesion.classList.remove("no-mostrar");
@@ -99,8 +82,6 @@ function setearPagina(login, signup, cerrar_sesion, mostrar_usuario, bot_cargar_
         formulario.classList.remove("no-mostrar");
 
         contenedor_mostrar_usuario.classList.remove("no-mostrar");
-
-        div_usuario_logueado.classList.remove("no-mostrar");
 
         buscador.classList.remove("buscador_sin_sesion");
     }else{
@@ -120,9 +101,14 @@ function setearPagina(login, signup, cerrar_sesion, mostrar_usuario, bot_cargar_
 
         contenedor_mostrar_usuario.classList.add("no-mostrar");
 
-        div_usuario_logueado.classList.add("no-mostrar");
-
         buscador.classList.add("buscador_sin_sesion");
+    }
+
+    let veterinarias = JSON.parse(localStorage.getItem(guardar_veterinarias));
+    if (veterinarias.length == 0){
+        contenedor_veterinarias.classList.add("no-mostrar");
+    }else {
+        contenedor_veterinarias.classList.remove("no-mostrar");
     }
 }
 
@@ -166,6 +152,7 @@ function cargarVeterinaria(clave_vet, clave_sesion){
 
     if(mensaje.length === 0){
         let vete_nueva = new Veterinaria(nombre, direccion, localidad, puntuacion, descripcion, usuario_logueado);
+        vete_nueva.cargarFecha();
         let veterinarias_guardadas = JSON.parse(localStorage.getItem(clave_vet));
 
         if(veterinarias_guardadas){
@@ -183,7 +170,85 @@ function cargarVeterinaria(clave_vet, clave_sesion){
         document.getElementById("descripcion_vet").value = "";
 
         let formulario_agregar_veterinaria = document.getElementById("formulario_agregar_veterinaria");
-        formulario_agregar_veterinaria.classList.remove("altura-doscientos");
+        formulario_agregar_veterinaria.classList.remove("altura-dos");
+
+        Toastify({
+            text: 'Veterinaria agregada con éxito',
+            duration: 3000,
+            gravity: 'top',
+            position: 'center',
+        }).showToast();
+
+        mostrarVeterinarias();
+    }else {
+        for(let i = 0; i<mensaje.length; i++){
+            let li = document.createElement("li");
+            li.innerHTML = mensaje[i];
+            mostrar_errores.appendChild(li);
+        }
+    }
+}
+
+//Funcion para editar una veterinaria a traves del formulario del html
+function editarVeterinaria(clave_vet, clave_sesion, fecha){
+    let mensaje = new Array();
+    let mostrar_errores = document.getElementById("mostrar_errores_veterinaria");
+    mostrar_errores.innerHTML = "";
+
+    let nombre = document.getElementById("nombre_vet").value;
+    let direccion = document.getElementById("direccion_vet").value;
+    let localidad = document.getElementById("localidad_vet").value;
+    let puntuacion = document.getElementById("puntuacion_vet").value;
+    let descripcion = document.getElementById("descripcion_vet").value;
+
+    let usuario_logueado = JSON.parse(localStorage.getItem(clave_sesion));
+    usuario_logueado = usuario_logueado[0].username;
+
+    let veterinarias_guardadas = JSON.parse(localStorage.getItem(clave_vet));
+    for(let i = 0; i < veterinarias_guardadas.length; i++){
+        if(veterinarias_guardadas[i].nombre.toLowerCase() === nombre.toLowerCase() && veterinarias_guardadas[i].direccion.toLowerCase() === direccion.toLowerCase()){
+            mensaje.push("La veterinaria ya esta cargada");
+        }
+        else if(veterinarias_guardadas[i].nombre.toLowerCase() === nombre.toLowerCase()){
+            mensaje.push('Ya existe una veterinaria con ese nombre, agregarle un distintivo, ej:"veterinaria calle"');
+        }
+    }
+
+    if(nombre === ""){
+        mensaje.push("Debes colocar un nombre");
+    }
+    if(direccion === ""){
+        mensaje.push("Debes colocar la dirección");
+    }
+    if(localidad === ""){
+        mensaje.push("Debes colocar la localidad");
+    }
+    if(puntuacion < 1 || puntuacion > 5){
+        mensaje.push("La puntuación debe ser del 1 al 5");
+    }
+
+    if(mensaje.length === 0){
+        let vete_nueva = new Veterinaria(nombre, direccion, localidad, puntuacion, descripcion, usuario_logueado);
+        vete_nueva.fecha = fecha;
+        vete_nueva.editarVet();
+
+        if(veterinarias_guardadas){
+            veterinarias_guardadas.push(vete_nueva);
+            localStorage.setItem(clave_vet, JSON.stringify(veterinarias_guardadas));
+        }else {
+            veterinarias_guardadas = new Array();
+            veterinarias_guardadas.push(vete_nueva);
+            localStorage.setItem(clave_vet, JSON.stringify(veterinarias_guardadas));
+        }
+        document.getElementById("nombre_vet").value = "";
+        document.getElementById("direccion_vet").value = "";
+        document.getElementById("localidad_vet").value = "";
+        document.getElementById("puntuacion_vet").value = "";
+        document.getElementById("descripcion_vet").value = "";
+
+        let formulario_agregar_veterinaria = document.getElementById("formulario_agregar_veterinaria");
+        formulario_agregar_veterinaria.classList.remove("altura-dos");
+
         mostrarVeterinarias();
     }else {
         for(let i = 0; i<mensaje.length; i++){
@@ -220,6 +285,8 @@ function crearDivVeterinaria(arreglo, div_contenedor, clave_vet, clave_sesion){
         let puntuacion = document.createElement("p");
         let descripcion = document.createElement("p");
         let cargado_por = document.createElement("p");
+        let fecha = document.createElement("p");
+        let actualizacion = document.createElement("p");
 
         nombre.innerHTML = "Nombre: " + arreglo[i].nombre;
         direccion.innerHTML = "Dirección: " + arreglo[i].direccion;
@@ -227,6 +294,12 @@ function crearDivVeterinaria(arreglo, div_contenedor, clave_vet, clave_sesion){
         puntuacion.innerHTML = "Puntuación: " + arreglo[i].puntuacion +" Estrellas";
         descripcion.innerHTML = "Reseña: " + arreglo[i].descripcion;
         cargado_por.innerHTML = "Recomendada por: " + arreglo[i].usuario;
+        if(arreglo[i].fecha){
+            fecha.innerHTML = "Cargada el " + arreglo[i].fecha;
+        }
+        if(arreglo[i].actualizacion){
+            actualizacion.innerHTML = "Actualizada el " + arreglo[i].actualizacion;
+        }
 
         let usuario_logueado;
         try{
@@ -238,12 +311,31 @@ function crearDivVeterinaria(arreglo, div_contenedor, clave_vet, clave_sesion){
         boton_borrar.classList.add("boton-borrar");
         boton_borrar.innerHTML = "Eliminar Veterinaria";
         boton_borrar.addEventListener("click", ()=>{
-            let confirmación = confirm(`Se esta por eliminar la veterinaria ${arreglo[i].nombre}, ¿desea proseguir?`);
-            if(confirmación){
-                arreglo = arreglo.filter(vete => vete.nombre !== arreglo[i].nombre);
-                localStorage.setItem(guardar_veterinarias, JSON.stringify(arreglo));
-                mostrarVeterinarias();
-            }
+            // let confirmación = confirm(`Se esta por eliminar la veterinaria ${arreglo[i].nombre}, ¿desea proseguir?`);
+            // if(confirmación){
+            //     arreglo = arreglo.filter(vete => vete.nombre !== arreglo[i].nombre);
+            //     localStorage.setItem(guardar_veterinarias, JSON.stringify(arreglo));
+            //     mostrarVeterinarias();
+            // }
+            Swal.fire({
+                title: `¿Borrar veterinaria ${arreglo[i].nombre}?`,
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Si, borrar"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: "¡Borrada!",
+                        text: `${arreglo[i].nombre} ya no existe.`,
+                        icon: "success"
+                    });
+                    arreglo = arreglo.filter(vete => vete.nombre !== arreglo[i].nombre);
+                    localStorage.setItem(guardar_veterinarias, JSON.stringify(arreglo));
+                    mostrarVeterinarias();
+                }
+            });
         })
 
         let boton_editar = document.createElement("button");
@@ -251,7 +343,7 @@ function crearDivVeterinaria(arreglo, div_contenedor, clave_vet, clave_sesion){
         boton_editar.innerHTML = "Editar veterinaria";
         boton_editar.addEventListener("click", ()=>{
             let formulario_agregar_veterinaria = document.getElementById("formulario_agregar_veterinaria");
-            formulario_agregar_veterinaria.classList.add("altura-doscientos");
+            formulario_agregar_veterinaria.classList.add("altura-dos");
 
             document.getElementById("nombre_vet").value = arreglo[i].nombre;
             document.getElementById("direccion_vet").value = arreglo[i].direccion;
@@ -265,21 +357,49 @@ function crearDivVeterinaria(arreglo, div_contenedor, clave_vet, clave_sesion){
             boton_editar_veterinaria.innerHTML = "Editar";
             boton_editar_veterinaria.classList.add("boton_editar");
             boton_editar_veterinaria.addEventListener("click", ()=>{
-                let confirmación = confirm("¿Desea aplicar los cambios ");
+                // let confirmación = confirm("¿Desea aplicar los cambios ");
 
-                if(confirmación){
-                    arreglo = arreglo.filter((vete ,index) => index !== i);
-                    localStorage.setItem(clave_vet, JSON.stringify(arreglo));
-                    cargarVeterinaria(clave_vet, clave_sesion);
-                }else{
-                    formulario_agregar_veterinaria.classList.remove("altura-doscientos");
+                // if(confirmación){
+                //     arreglo = arreglo.filter((vete ,index) => index !== i);
+                //     localStorage.setItem(clave_vet, JSON.stringify(arreglo));
+                //     cargarVeterinaria(clave_vet, clave_sesion);
+                // }else{
+                //     formulario_agregar_veterinaria.classList.remove("altura-doscientos");
 
-                    document.getElementById("nombre_vet").value = "";
-                    document.getElementById("direccion_vet").value = "";
-                    document.getElementById("localidad_vet").value = "";
-                    document.getElementById("puntuacion_vet").value = "";
-                    document.getElementById("descripcion_vet").value = "";
-                }
+                //     document.getElementById("nombre_vet").value = "";
+                //     document.getElementById("direccion_vet").value = "";
+                //     document.getElementById("localidad_vet").value = "";
+                //     document.getElementById("puntuacion_vet").value = "";
+                //     document.getElementById("descripcion_vet").value = "";
+                // }
+                Swal.fire({
+                    title: `¿Aplicar cambios a ${arreglo[i].nombre}?`,
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Si, editar"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Swal.fire({
+                            title: "Editada :)",
+                            text: `${arreglo[i].nombre} se actualizó.`,
+                            icon: "success"
+                        });
+                        let fecha = arreglo[i].fecha;
+                        arreglo = arreglo.filter((vete ,index) => index !== i);
+                        localStorage.setItem(clave_vet, JSON.stringify(arreglo));
+                        editarVeterinaria(clave_vet, clave_sesion, fecha);
+                    }else{
+                        formulario_agregar_veterinaria.classList.remove("altura-dos");
+
+                        document.getElementById("nombre_vet").value = "";
+                        document.getElementById("direccion_vet").value = "";
+                        document.getElementById("localidad_vet").value = "";
+                        document.getElementById("puntuacion_vet").value = "";
+                        document.getElementById("descripcion_vet").value = "";
+                    }
+                });
             });
             div_editar_veterinaria.appendChild(boton_editar_veterinaria);
         })
@@ -292,6 +412,8 @@ function crearDivVeterinaria(arreglo, div_contenedor, clave_vet, clave_sesion){
             div.appendChild(descripcion);
         }
         div.appendChild(cargado_por);
+        div.appendChild(fecha);
+        div.appendChild(actualizacion);
         try{
             if(arreglo[i].usuario === usuario_logueado[0].username || usuario_logueado[0].admin === true){
                 div.appendChild(boton_borrar);
@@ -306,9 +428,10 @@ function crearDivVeterinaria(arreglo, div_contenedor, clave_vet, clave_sesion){
 // Funcion que cierra la sesion y deja el arreglo de la sesion vacio.
 function cerrarSesion(){
     let sesion = JSON.parse(localStorage.getItem(guardarSesion));
+    let usuario = sesion[0];
     sesion = [];
     localStorage.setItem(guardarSesion, JSON.stringify(sesion));
-    cambioVisualLogout(sesion);
+    cambioVisualLogout(sesion, usuario);
 
     let mostrar_usuario = document.querySelector("#mostrar_usuario");
     mostrar_usuario.classList.add("no-mostrar");

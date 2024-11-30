@@ -25,10 +25,13 @@ login.addEventListener("click", ()=>{
     mostrar_errores_inicio.innerHTML = "";
 
     let mostrar_inicio = document.getElementById("mostrar_inicio");
-    desplegar(mostrar_inicio,"altura-cien");
+    desplegar(mostrar_inicio,"altura-cientoveinte");
 
     let mostrar_registro = document.getElementById("mostrar_registro");
-    mostrar_registro.classList.remove("altura-dos");
+    mostrar_registro.classList.remove("altura-dos-setenta");
+
+    document.getElementById("usuario").value = "";
+    document.getElementById("pass").value = "";
 })
 
 //este boton despliega el formulario para registrar un usuario y repliega el formulario de inicio de sesion en el caso que este desplegado.
@@ -40,10 +43,17 @@ signup.addEventListener("click", ()=>{
     mostrar_errores_inicio.innerHTML = "";
 
     let mostrar_registro = document.getElementById("mostrar_registro");
-    desplegar(mostrar_registro, "altura-dos");
+    desplegar(mostrar_registro, "altura-dos-setenta");
 
     let mostrar_inicio = document.getElementById("mostrar_inicio");
-    mostrar_inicio.classList.remove("altura-cien");
+    mostrar_inicio.classList.remove("altura-cientoveinte");
+
+    document.getElementById("usuario_registro").value = "";
+    document.getElementById("pass_registro").value = "";
+    document.getElementById("pass_registro2").value = "";
+    document.getElementById("nombre").value = "";
+    document.getElementById("apellido").value = "";
+    document.getElementById("edad").value = "";
 })
 
 let iniciar_sesion = document.getElementById("iniciar_sesion");
@@ -88,6 +98,13 @@ iniciar_sesion.addEventListener("click", ()=> {
 
             let buscador = document.getElementById("buscador");
             buscador.classList.remove("buscador_sin_sesion");
+
+            Toastify({
+                text: `Bienvenido ${usuario.username}`,
+                duration: 2000,
+                gravity: 'top',
+                position: 'center',
+            }).showToast();
 
             mostrarVeterinarias();
         }
@@ -185,12 +202,19 @@ registrar_usuario.addEventListener("click", ()=>{
         usuarios.push(usuario);
         localStorage.setItem(guardarDatos, JSON.stringify(usuarios));
 
-        let mostrar_errores_registro = document.getElementById("mostrar_errores_registro");
+        // let mostrar_errores_registro = document.getElementById("mostrar_errores_registro");
 
-        let h3 = document.createElement("h3");
-        h3.innerHTML = `Usuario ${username} registrado con éxito.`;
+        // let h3 = document.createElement("h3");
+        // h3.innerHTML = `Usuario ${username} registrado con éxito.`;
 
-        mostrar_errores_registro.appendChild(h3);
+        // mostrar_errores_registro.appendChild(h3);
+
+        Toastify({
+            text: `${username} registrado con éxito`,
+            duration: 2000,
+            gravity: 'top',
+            position: 'right',
+        }).showToast();
 
         let mostrar_registro = document.getElementById("mostrar_registro");
         mostrar_registro.classList.remove("altura-dos");
@@ -205,14 +229,16 @@ mostrar_usuario.addEventListener("click", ()=>{
 
     let contenedor_mostrar_usuario = document.getElementById("contenedor_mostrar_usuario");
 
-    if(!div.classList.contains("altura-dos-cincuenta")){
+    if(!div.classList.contains("altura-trescientos")){
         contenedor_mostrar_usuario.classList.add("top-cero");
         contenedor_mostrar_usuario.classList.remove("top-menos-cinco");
 
-        div.classList.add("altura-dos-cincuenta");
+        div.classList.add("altura-trescientos");
         div.classList.add("top-cero");
         div.classList.remove("top-menos-cinco");
         div.innerHTML = "";
+
+        mostrar_usuario.innerHTML = "Ocultar mis datos";
 
         let dato = JSON.parse(localStorage.getItem(guardarSesion));
         let usuario = dato[0];
@@ -233,23 +259,55 @@ mostrar_usuario.addEventListener("click", ()=>{
         boton_borrar_usuario.innerHTML = "Borrar mi usuario";
         boton_borrar_usuario.classList.add("boton-borrar");
         boton_borrar_usuario.addEventListener("click", ()=>{
-            let confirmación = confirm("Si borra su usuario no se podrá recuperar, ¿desea proseguir?");
-            if(confirmación){
-                let usuarios_guardados = JSON.parse(localStorage.getItem(guardarDatos));
-                let usuario_iniciado = JSON.parse(localStorage.getItem(guardarSesion));
-                for(let i = 0; i < usuarios_guardados.length; i++){
-                    if(usuarios_guardados[i].username === usuario_iniciado[0].username){
-                        usuarios_guardados = usuarios_guardados.filter(a=> a.username !== usuario_iniciado[0].username);
-                        cerrarSesion();
-                        let mostrar_errores_registro = document.getElementById("mostrar_errores_registro");
-                        let h3 = document.createElement("h3");
-                        h3.innerHTML = `Usuario ${usuario.username} eliminado con éxito.`;
-                        mostrar_errores_registro.appendChild(h3);
-                        break;
+            // let confirmación = confirm("Si borra su usuario no se podrá recuperar, ¿desea proseguir?");
+            // if(confirmación){
+            //     let usuarios_guardados = JSON.parse(localStorage.getItem(guardarDatos));
+            //     let usuario_iniciado = JSON.parse(localStorage.getItem(guardarSesion));
+            //     for(let i = 0; i < usuarios_guardados.length; i++){
+            //         if(usuarios_guardados[i].username === usuario_iniciado[0].username){
+            //             usuarios_guardados = usuarios_guardados.filter(a=> a.username !== usuario_iniciado[0].username);
+            //             cerrarSesion();
+            //             // let mostrar_errores_registro = document.getElementById("mostrar_errores_registro");
+            //             // let h3 = document.createElement("h3");
+            //             // h3.innerHTML = `Usuario ${usuario.username} eliminado con éxito.`;
+            //             // mostrar_errores_registro.appendChild(h3);
+            //             Toastify({
+            //                 text: `Usuario ${usuario.username} eliminado con éxito`,
+            //                 duration: 3000,
+            //                 gravity: 'top',
+            //                 position: 'center',
+            //             }).showToast();
+            //             break;
+            //         }
+            //     }
+            //     localStorage.setItem(guardarDatos, JSON.stringify(usuarios_guardados));
+            // }
+            Swal.fire({
+                title: "Si borra su usuario no se podrá recuperar, ¿desea proseguir?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Si, borrar"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    let usuarios_guardados = JSON.parse(localStorage.getItem(guardarDatos));
+                    let usuario_iniciado = JSON.parse(localStorage.getItem(guardarSesion));
+                    for(let i = 0; i < usuarios_guardados.length; i++){
+                        if(usuarios_guardados[i].username === usuario_iniciado[0].username){
+                            usuarios_guardados = usuarios_guardados.filter(a=> a.username !== usuario_iniciado[0].username);
+                            cerrarSesion();
+                            break;
+                        }
                     }
+                    localStorage.setItem(guardarDatos, JSON.stringify(usuarios_guardados));
+                    Swal.fire({
+                    title: "¡Borrado!",
+                    text: "Tu usario ya no existe.",
+                    icon: "success"
+                    });
                 }
-                localStorage.setItem(guardarDatos, JSON.stringify(usuarios_guardados));
-            }
+            });
         });
 
         div.appendChild(username);
@@ -263,9 +321,11 @@ mostrar_usuario.addEventListener("click", ()=>{
         }
         div.appendChild(boton_borrar_usuario);
     }else {
-        div.classList.remove("altura-dos-cincuenta");
+        div.classList.remove("altura-trescientos");
         div.classList.remove("top-cero");
         div.classList.add("top-menos-cinco");
+
+        mostrar_usuario.innerHTML = "Mostrar mis datos";
 
         contenedor_mostrar_usuario.classList.remove("top-cero");
         contenedor_mostrar_usuario.classList.add("top-menos-cinco");

@@ -1,3 +1,7 @@
+const DateTime = luxon.DateTime;
+const now = DateTime.now();
+
+
 class Veterinaria {
     constructor(nombre, direccion, localidad, puntuacion, descripcion, usuario){
         this.nombre = nombre;
@@ -6,10 +10,20 @@ class Veterinaria {
         this.puntuacion = puntuacion;
         this.descripcion = descripcion;
         this.usuario = usuario;
+        this.fecha = null;
+        this.actualizacion = null;
     }
 
     static veterinaria(objeto){
         return new Veterinaria(objeto.nombre, objeto.direccion, objeto.localidad, objeto.puntuacion, objeto.descripcion, objeto.usuario);
+    }
+
+    cargarFecha(){
+        return this.fecha = now.toLocaleString(DateTime.FULL_DATE);
+    }
+
+    editarVet(){
+        return this.actualizacion = now.toLocaleString(DateTime.FULL_DATE);
     }
 }
 
