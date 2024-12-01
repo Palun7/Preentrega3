@@ -53,6 +53,7 @@ function cambioVisualLogout(sesion, usuario){
 
 //funcion que se inicia con la carga de la pagina y detecta si hay un usuario logueado o no y dependiendo de ello son los botones que muestra.
 function setearPagina(login, signup, cerrar_sesion, mostrar_usuario, bot_cargar_vet, formulario){
+    veterinariasBase();
     let div = document.getElementById("perfil_usuario");
     let contenedor_mostrar_usuario = document.getElementById("contenedor_mostrar_usuario");
     let buscador = document.getElementById("buscador");
@@ -253,7 +254,6 @@ function editarVeterinaria(clave_vet, clave_sesion, fecha){
 
 //funcion que llama del localStorage las veterinarias guardadas y usa la funcion de crear el div para mostrarlas en la pagina.
 function mostrarVeterinarias(){
-    veterinariasBase();
     let div_veterinarias = document.getElementById("veterinarias");
     div_veterinarias.innerHTML = "";
     let veterinarias_guardadas = JSON.parse(localStorage.getItem(guardar_veterinarias));
@@ -287,6 +287,7 @@ function crearDivVeterinaria(arreglo, div_contenedor, clave_vet, clave_sesion){
         puntuacion.innerHTML = "Puntuación: " + arreglo[i].puntuacion +" Estrellas";
         descripcion.innerHTML = "Reseña: " + arreglo[i].descripcion;
         cargado_por.innerHTML = "Recomendada por: " + arreglo[i].usuario;
+
         if(arreglo[i].fecha){
             fecha.innerHTML = "Cargada el " + arreglo[i].fecha;
         }
@@ -459,29 +460,19 @@ const veterinariasBase = async()=> {
     const vetes_base = await vete_json.json();
 
 
+
     vetes_base.veterinarias.forEach(veterinaria => {
-        let vete_nueva = new Veterinaria(veterinaria.nombre, veterinaria.direccion, veterinaria.localidad, veterinaria.puntuacion, veterinaria.descripcion);
-        let div = document.createElement("div");
-        div.classList.add("contenedor_veterinarias");
-
-        let nombre = document.createElement("h3");
-        let direccion = document.createElement("p");
-        let localidad = document.createElement("p");
-        let puntuacion = document.createElement("p");
-        let descripcion = document.createElement("p");
-
-        nombre.innerHTML = "Nombre: " + vete_nueva.nombre;
-        direccion.innerHTML = "Dirección: " + vete_nueva.direccion;
-        localidad.innerHTML = "Localidad: " + vete_nueva.localidad;
-        puntuacion.innerHTML = "Puntuación: " + vete_nueva.puntuacion;
-        descripcion.innerHTML = "Reseña: " + vete_nueva.descripcion;
-
-        div.appendChild(nombre);
-        div.appendChild(direccion);
-        div.appendChild(localidad);
-        div.appendChild(puntuacion);
-        div.appendChild(descripcion);
-
-        veterinarias_contenedor.appendChild(div);
+        let veterinarias_guardadas = JSON.parse(localStorage.getItem(guardar_veterinarias)) || [];
+        let vete_nueva = new Veterinaria(veterinaria.nombre, veterinaria.direccion, veterinaria.localidad, veterinaria.puntuacion, veterinaria.descripcion, veterinaria.usuario);
+        let num = 0;
+        for(let i = 0; i < veterinarias_guardadas.length; i++){
+            if(vete_nueva.nombre === veterinarias_guardadas[i].nombre){
+                num++
+            }
+        }
+        if(num === 0){
+            veterinarias_guardadas.push(vete_nueva);
+            localStorage.setItem(guardar_veterinarias, JSON.stringify(veterinarias_guardadas));
+        }
     })
 }

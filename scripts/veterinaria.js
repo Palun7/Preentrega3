@@ -28,9 +28,8 @@ class Veterinaria {
 }
 
 const guardar_veterinarias = "veterinarias";
-let verificar = JSON.parse(localStorage.getItem(guardar_veterinarias));
+let verificar = JSON.parse(localStorage.getItem(guardar_veterinarias)) || [];
 
-if(!verificar){
-    const veterinarias = new Array();
-    localStorage.setItem(guardar_veterinarias, JSON.stringify(veterinarias));
+if(verificar.lenght === 0){
+    localStorage.setItem(guardar_veterinarias, JSON.stringify(verificar));
 }

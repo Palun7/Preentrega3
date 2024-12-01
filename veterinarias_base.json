@@ -4,22 +4,25 @@
             "nombre" : "Alem",
             "direccion" : "San Lorenzo 335",
             "localidad" : "Córdoba - Capital",
-            "puntuacion" : 4,
-            "descripcion" : "Buena atención"
+            "puntuacion" : "4",
+            "descripcion" : "Buena atención",
+            "usuario" : "Palun"
         },
         {
             "nombre" : "Ecología",
             "direccion" : "Bv. San Juan 101",
             "localidad" : "Córdoba - Capital",
-            "puntuacion" : 4,
-            "descripcion" : "Buenos precios y atención rápida"
+            "puntuacion" : "4",
+            "descripcion" : "Buenos precios y atención rápida",
+            "usuario" : "Palun"
         },
         {
             "nombre" : "Nueva Córdoba",
             "direccion" : "Ituzaingo 751",
             "localidad" : "Córdoba - Capital",
-            "puntuacion" : 4,
-            "descripcion" : "Atención rápida y buena"
+            "puntuacion" : "4",
+            "descripcion" : "Atención rápida y buena",
+            "usuario" : "Palun"
         }
     ]
 }
