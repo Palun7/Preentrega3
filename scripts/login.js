@@ -75,7 +75,7 @@ iniciar_sesion.addEventListener("click", ()=> {
             localStorage.setItem(guardarSesion, JSON.stringify(sesion));
             document.getElementById("usuario").value = "";
             document.getElementById("pass").value = "";
-            cambioVisualLogin(usuario);
+            cambioVisualLogin();
 
             let mostrar_usuario = document.querySelector("#mostrar_usuario");
             mostrar_usuario.classList.remove("no-mostrar");
@@ -87,7 +87,7 @@ iniciar_sesion.addEventListener("click", ()=> {
             contenedor_mostrar_usuario.classList.remove("no-mostrar");
 
             let mostrar_inicio = document.getElementById("mostrar_inicio");
-            desplegar(mostrar_inicio, "altura-cien");
+            mostrar_inicio.classList.remove("altura-cientoveinte");
 
             let cargar_vet = document.getElementById("cargar_vet");
             cargar_vet.classList.remove("no-mostrar");
@@ -100,7 +100,7 @@ iniciar_sesion.addEventListener("click", ()=> {
             buscador.classList.remove("buscador_sin_sesion");
 
             Toastify({
-                text: `Bienvenido ${usuario.username}`,
+                text: `Bienvenid@ ${usuario.username}`,
                 duration: 2000,
                 gravity: 'top',
                 position: 'center',
@@ -217,7 +217,7 @@ registrar_usuario.addEventListener("click", ()=>{
         }).showToast();
 
         let mostrar_registro = document.getElementById("mostrar_registro");
-        mostrar_registro.classList.remove("altura-dos");
+        desplegar(mostrar_registro, "altura-dos-setenta");
     }
 })
 
@@ -296,6 +296,11 @@ mostrar_usuario.addEventListener("click", ()=>{
                     for(let i = 0; i < usuarios_guardados.length; i++){
                         if(usuarios_guardados[i].username === usuario_iniciado[0].username){
                             usuarios_guardados = usuarios_guardados.filter(a=> a.username !== usuario_iniciado[0].username);
+                            div.classList.remove("altura-trescientos");
+                            div.classList.remove("top-cero");
+                            div.classList.add("top-menos-cinco");
+                            div.innerHTML = "";
+                            mostrar_usuario.innerHTML = "Mostrar mis datos";
                             cerrarSesion();
                             break;
                         }

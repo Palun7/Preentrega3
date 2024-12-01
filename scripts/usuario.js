@@ -30,18 +30,11 @@ class Usuario {
 }
 
 const guardarDatos = "usuarios";
-let datos_en_local = JSON.parse(localStorage.getItem(guardarDatos));
+let datos_en_local = JSON.parse(localStorage.getItem(guardarDatos)) || [];
 
-if(!datos_en_local){
-    const usuarios = new Array();
+if(datos_en_local.length == 0){
     let palun = new Usuario("Palun", "123456", "Pablo", "Martinez", "34", true);
     let anita = new Usuario("Anita", "123456", "Ana", "Murua", "32");
-    usuarios.push(palun, anita);
-    localStorage.setItem(guardarDatos, JSON.stringify(usuarios));
-}else if(datos_en_local.length === 0){
-    const usuarios = new Array();
-    let palun = new Usuario("Palun", "123456", "Pablo", "Martinez", "34", true);
-    let anita = new Usuario("Anita", "123456", "Ana", "Murua", "32");
-    usuarios.push(palun, anita);
-    localStorage.setItem(guardarDatos, JSON.stringify(usuarios));
+    datos_en_local.push(palun, anita);
+    localStorage.setItem(guardarDatos, JSON.stringify(datos_en_local));
 }

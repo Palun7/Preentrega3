@@ -1,4 +1,4 @@
-# Preentrega N°3 - Martinez Pablo - JavaScript
+# Proyecto Final - Martinez Pablo - JavaScript
 ## Comision N°: 60005
 
 > Página que permite recomendar veterinarias.

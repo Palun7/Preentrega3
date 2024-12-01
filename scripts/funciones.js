@@ -10,11 +10,12 @@ function desplegar(elemento, clase){
 }
 
 //funcion que se llama al iniciar sesion que esconde los botones de login y registro. Por otro lado muestra el boton de cerrar sesion y el boton de mostrar los datos.
-function cambioVisualLogin(usuario){
+function cambioVisualLogin(){
     let cerrar_sesion = document.getElementById("boton_cerrar_sesion");
     cerrar_sesion.classList.remove("no-mostrar");
 
     let mostrar_inicio = document.getElementById("mostrar_inicio");
+    desplegar(mostrar_inicio,"altura-cientoveinte");
     mostrar_inicio.classList.add("no-mostrar");
 
     let error = document.getElementById("mostrar_errores_inicio");
@@ -55,8 +56,6 @@ function setearPagina(login, signup, cerrar_sesion, mostrar_usuario, bot_cargar_
     let div = document.getElementById("perfil_usuario");
     let contenedor_mostrar_usuario = document.getElementById("contenedor_mostrar_usuario");
     let buscador = document.getElementById("buscador");
-    let contenedor_veterinarias = document.getElementById("mostrar_veterinarias");
-
 
     let sesion;
     try{
@@ -102,13 +101,6 @@ function setearPagina(login, signup, cerrar_sesion, mostrar_usuario, bot_cargar_
         contenedor_mostrar_usuario.classList.add("no-mostrar");
 
         buscador.classList.add("buscador_sin_sesion");
-    }
-
-    let veterinarias = JSON.parse(localStorage.getItem(guardar_veterinarias));
-    if (veterinarias.length == 0){
-        contenedor_veterinarias.classList.add("no-mostrar");
-    }else {
-        contenedor_veterinarias.classList.remove("no-mostrar");
     }
 }
 
@@ -261,6 +253,7 @@ function editarVeterinaria(clave_vet, clave_sesion, fecha){
 
 //funcion que llama del localStorage las veterinarias guardadas y usa la funcion de crear el div para mostrarlas en la pagina.
 function mostrarVeterinarias(){
+    veterinariasBase();
     let div_veterinarias = document.getElementById("veterinarias");
     div_veterinarias.innerHTML = "";
     let veterinarias_guardadas = JSON.parse(localStorage.getItem(guardar_veterinarias));
@@ -456,4 +449,39 @@ function cerrarSesion(){
     contenedor_mostrar_usuario.classList.add("top-menos-cinco");
 
     mostrarVeterinarias();
+}
+
+const veterinariasBase = async()=> {
+    let veterinarias_contenedor = document.getElementById("veterinarias");
+    veterinarias_contenedor.innerHTML = "";
+
+    const vete_json = await fetch("./veterinarias_base.json");
+    const vetes_base = await vete_json.json();
+
+
+    vetes_base.veterinarias.forEach(veterinaria => {
+        let vete_nueva = new Veterinaria(veterinaria.nombre, veterinaria.direccion, veterinaria.localidad, veterinaria.puntuacion, veterinaria.descripcion);
+        let div = document.createElement("div");
+        div.classList.add("contenedor_veterinarias");
+
+        let nombre = document.createElement("h3");
+        let direccion = document.createElement("p");
+        let localidad = document.createElement("p");
+        let puntuacion = document.createElement("p");
+        let descripcion = document.createElement("p");
+
+        nombre.innerHTML = "Nombre: " + vete_nueva.nombre;
+        direccion.innerHTML = "Dirección: " + vete_nueva.direccion;
+        localidad.innerHTML = "Localidad: " + vete_nueva.localidad;
+        puntuacion.innerHTML = "Puntuación: " + vete_nueva.puntuacion;
+        descripcion.innerHTML = "Reseña: " + vete_nueva.descripcion;
+
+        div.appendChild(nombre);
+        div.appendChild(direccion);
+        div.appendChild(localidad);
+        div.appendChild(puntuacion);
+        div.appendChild(descripcion);
+
+        veterinarias_contenedor.appendChild(div);
+    })
 }

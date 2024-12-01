@@ -1,0 +1,25 @@
+{
+    "veterinarias" : [
+        {
+            "nombre" : "Alem",
+            "direccion" : "San Lorenzo 335",
+            "localidad" : "Córdoba - Capital",
+            "puntuacion" : 4,
+            "descripcion" : "Buena atención"
+        },
+        {
+            "nombre" : "Ecología",
+            "direccion" : "Bv. San Juan 101",
+            "localidad" : "Córdoba - Capital",
+            "puntuacion" : 4,
+            "descripcion" : "Buenos precios y atención rápida"
+        },
+        {
+            "nombre" : "Nueva Córdoba",
+            "direccion" : "Ituzaingo 751",
+            "localidad" : "Córdoba - Capital",
+            "puntuacion" : 4,
+            "descripcion" : "Atención rápida y buena"
+        }
+    ]
+}

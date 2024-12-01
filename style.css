@@ -270,17 +270,18 @@ h4 {
 }
 
 .veterinarias-css {
-    width: 90vw;
+    width: 95vw;
     display: flex;
     gap: 1vw;
     flex-wrap: wrap;
 }
 
 .contenedor_veterinarias {
-    min-width: 250px;
+    max-width: 300px;
     width: fit-content;
     display: flex;
     flex-direction: column;
+    flex-wrap: wrap;
     gap: .5em;
     padding: 10px;
     margin-bottom: 5vh;
