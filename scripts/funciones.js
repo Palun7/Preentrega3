@@ -459,17 +459,19 @@ const veterinariasBase = async()=> {
     const vete_json = await fetch("./veterinarias_base.json");
     const vetes_base = await vete_json.json();
 
-
-
     vetes_base.veterinarias.forEach(veterinaria => {
         let veterinarias_guardadas = JSON.parse(localStorage.getItem(guardar_veterinarias)) || [];
+
         let vete_nueva = new Veterinaria(veterinaria.nombre, veterinaria.direccion, veterinaria.localidad, veterinaria.puntuacion, veterinaria.descripcion, veterinaria.usuario);
+
         let num = 0;
+
         for(let i = 0; i < veterinarias_guardadas.length; i++){
             if(vete_nueva.nombre === veterinarias_guardadas[i].nombre){
                 num++
             }
         }
+
         if(num === 0){
             veterinarias_guardadas.push(vete_nueva);
             localStorage.setItem(guardar_veterinarias, JSON.stringify(veterinarias_guardadas));
